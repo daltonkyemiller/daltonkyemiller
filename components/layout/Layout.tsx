@@ -7,7 +7,6 @@ type Props = {
 };
 
 const Layout: React.FC<Props> = (props: Props) => {
-
     return (
         <>
             <Nav/>
