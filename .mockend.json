@@ -1,7 +1,18 @@
 {
-  "User": {
+  "Project": {
     "title": {
       "string": {}
+    },
+    "description": {
+      "loremSentences": {
+        "minLength": 1,
+        "maxLength": 10
+      }
+    },
+    "photos": {
+      "regexp": [
+        "https://picsum\\.photos/seed/[0-9]{5}/1920/1080"
+      ]
     }
   }
 }
