@@ -4,3 +4,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+	body {
+		@apply bg-slate-50
+	}
+}
+
+#__next {
+	display: flex;
+}

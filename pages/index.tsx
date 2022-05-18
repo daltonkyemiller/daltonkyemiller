@@ -3,7 +3,9 @@ import Nav from '../components/nav/Nav';
 
 const Home: NextPage = () => {
     return (
-        <h1>hilow</h1>
+        <>
+            <h1>Hello</h1>
+        </>
     );
 };
 

@@ -1,5 +1,4 @@
 import React, { ReactNode } from 'react';
-import { Head } from 'next/document';
 import Nav from '../nav/';
 
 type Props = {
@@ -9,8 +8,20 @@ type Props = {
 const Layout: React.FC<Props> = (props: Props) => {
     return (
         <>
-            <Nav/>
-            <main>
+            <Nav links={[
+                {
+                    name: 'Home',
+                    href: '/'
+                },
+                {
+                    name: 'About',
+                    href: '/about'
+                }, {
+                    name: 'Resume',
+                    href: '/resume'
+                }]}
+            />
+            <main className={`prose`}>
                 {props.children}
             </main>
         </>

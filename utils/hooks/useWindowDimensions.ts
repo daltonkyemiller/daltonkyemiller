@@ -4,7 +4,7 @@ import { breakpoints, screens } from '@theme';
 type Dimensions = {
     width: number | undefined;
     height: number | undefined;
-    currBreakpoint?: breakpoints | undefined
+    currBreakpoint?: breakpoints
 };
 
 const useWindowDimensions = (): Dimensions => {
