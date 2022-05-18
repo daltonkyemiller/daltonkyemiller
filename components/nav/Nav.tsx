@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import React, { MouseEventHandler, useEffect, useState } from 'react';
+import React, { MouseEventHandler, useEffect, useRef, useState } from 'react';
 import { useWindowDimensions } from '@hooks';
 import { screens } from '@theme';
 import Link from 'next/link';
@@ -11,10 +11,14 @@ type NavProps = {
 
 const Nav: React.FC<NavProps> = ({links}: NavProps) => {
     const {width: screenWidth} = useWindowDimensions();
-    const [showNav, setShowNav] = useState<boolean>(false);
+    const [showNav, setShowNav] = useState<boolean>(true);
+
+
     useEffect(() => {
         if ((screenWidth as number) > screens['md']) setShowNav(true);
+        else setShowNav(false);
     }, [screenWidth]);
+
 
     const parentAnims = {
         hide: {
@@ -26,7 +30,7 @@ const Nav: React.FC<NavProps> = ({links}: NavProps) => {
                 staggerDirection: -1
             },
             transitionEnd: {
-                display: 'none',
+                display: 'none !important',
             }
         },
         show: {
@@ -65,7 +69,7 @@ const Nav: React.FC<NavProps> = ({links}: NavProps) => {
                 variants={parentAnims}
                 initial={`hide`}
                 animate={`${showNav ? 'show' : 'hide'}`}
-                className={`absolute md:relative inline-flex flex-col items-center justify-center h-screen w-full bg-slate-100 top-0 left-0`}
+                className={`absolute md:relative flex-col items-center justify-center h-screen w-full bg-slate-100 top-0 left-0`}
 
             >
                 <motion.h1
