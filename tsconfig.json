@@ -25,6 +25,9 @@
       ],
       "@theme": [
         "./utils/theme/index.ts"
+      ],
+      "@components": [
+        "./components/index.ts"
       ]
     }
   },

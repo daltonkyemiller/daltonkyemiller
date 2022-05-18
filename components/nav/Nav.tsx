@@ -13,85 +13,43 @@ const Nav: React.FC<NavProps> = ({links}: NavProps) => {
     const {width: screenWidth} = useWindowDimensions();
     const [showNav, setShowNav] = useState<boolean>(true);
 
-
-    useEffect(() => {
-        if ((screenWidth as number) > screens['md']) setShowNav(true);
-        else setShowNav(false);
-    }, [screenWidth]);
-
-
-    const parentAnims = {
-        hide: {
-            opacity: 0,
-            x: -25,
-            transition: {
-                duration: .25,
-                staggerChildren: .1,
-                staggerDirection: -1
-            },
-            transitionEnd: {
-                display: 'none !important',
-            }
-        },
+    const navVariants = {
         show: {
-            opacity: 1,
-            x: 0,
             display: 'flex',
-            transition: {
-                staggerChildren: .1,
-                staggerDirection: 1,
-            }
-        }
-    };
-
-    const childrenAnims = {
-        hide: {
-            x: -25,
-            transition: {
-                staggerChildren: .1,
-                staggerDirection: -1,
-            }
+            opacity: [0, 1],
+            transition: {duration: .25}
         },
-        show: {
-            opacity: 1,
-            x: 0,
-            transition: {
-                staggerChildren: .1,
-                staggerDirection: 1,
-            }
+        hide: {
+            opacity: [1, 0],
+            transition: {duration: .25},
+        
         }
     };
 
     return (
-        <nav className={`basis-1/6`}>
+        <nav className={`basis-1/6 z-10`}>
             <HamButton open={showNav} onClick={() => setShowNav(!showNav)}/>
             <motion.div
-                variants={parentAnims}
-                initial={`hide`}
-                animate={`${showNav ? 'show' : 'hide'}`}
-                className={`absolute md:relative flex-col items-center justify-center h-screen w-full bg-slate-100 top-0 left-0`}
-
+                className={`flex flex-col transition-all items-center justify-center h-screen w-full bg-slate-100 `}
+                variants={navVariants}
+                initial={'show'}
+                animate={showNav ? 'show' : 'hide'}
             >
-                <motion.h1
-                    variants={childrenAnims}
+                <h1
                     className="font-brand font-semibold text-5xl">
                     DKM
-                </motion.h1>
-                <motion.div
-                    variants={childrenAnims}
+                </h1>
+                <div
                     className="border-t border-slate-400 w-1/3 my-2"/>
-                <motion.ul
-                    variants={childrenAnims}
-                    initial={`hide`}
-                    animate={`${showNav ? 'show' : 'hide'}`}
+                <ul
                     className="flex flex-col text-xl font-sans gap-4 ">
                     {links.map(link => (
-                        <motion.li key={link.name} variants={childrenAnims}>
+                        <li key={link.name}>
                             <Link href={link.href}>{link.name}</Link>
-                        </motion.li>
+                        </li>
                     ))}
 
-                </motion.ul>
+                </ul>
             </motion.div>
         </nav>
     );

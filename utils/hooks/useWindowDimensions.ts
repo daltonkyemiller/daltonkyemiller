@@ -33,7 +33,7 @@ const useWindowDimensions = (): Dimensions => {
                 currBreakpoint: currBreakpoint
             });
         };
-        // Called once immedietly on mount to get initial window size
+        // Called once immediately on mount to get initial window size
         handleResize();
         // Adding a listener to the resize event
         window.addEventListener('resize', handleResize);

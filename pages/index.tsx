@@ -1,17 +1,25 @@
-import type { NextPage } from 'next';
-import Nav from '../components/nav/Nav';
+import type { GetStaticProps, NextPage } from 'next';
+import { PhotoGrid } from '@components';
 
-const Home: NextPage = () => {
+type HomeProps = {
+    projects: Array<{ photos: string }>
+}
+
+const Home: NextPage<HomeProps> = ({projects}) => {
     return (
         <>
-            <h1>Hello</h1>
-            <h1>Hello</h1>
-            <h1>Hello</h1>
-            <h1>Hello</h1>
-            <h1>Hello</h1>
-            <h1>Hello</h1>
+            {/*<PhotoGrid photos={projects.map(project => project.photos)}/>*/}
         </>
     );
 };
 
+export const getStaticProps: GetStaticProps = async (context) => {
+    let projects = await fetch('https://mockend.com/daltonkyemiller/daltonkyemiller/projects?limit=25');
+    let projectsRes = await projects.json() as HomeProps['projects'];
+    return {
+        props: {
+            projects: projectsRes
+        }
+    };
+};
 export default Home;
