@@ -8,7 +8,7 @@ type HomeProps = {
 const Home: NextPage<HomeProps> = ({projects}) => {
     return (
         <>
-            {/*<PhotoGrid photos={projects.map(project => project.photos)}/>*/}
+            <PhotoGrid photos={projects.map(project => project.photos)}/>
         </>
     );
 };

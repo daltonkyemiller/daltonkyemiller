@@ -11,6 +11,7 @@
 }
 
 #__next {
+	
 	display: flex;
 	flex-wrap: wrap;
 	width: 100vw;

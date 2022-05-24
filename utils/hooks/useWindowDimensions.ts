@@ -2,15 +2,15 @@ import { useEffect, useState } from 'react';
 import { breakpoints, screens } from '@theme';
 
 type Dimensions = {
-    width: number | undefined;
-    height: number | undefined;
+    width: number;
+    height: number;
     currBreakpoint?: breakpoints
 };
 
 const useWindowDimensions = (): Dimensions => {
     const [windowDimensions, setWindowDimensions] = useState<Dimensions>({
-        width: undefined,
-        height: undefined,
+        width: 1,
+        height: 1,
         currBreakpoint: undefined
     });
     useEffect(() => {

@@ -6,50 +6,81 @@ import Link from 'next/link';
 
 
 type NavProps = {
-    links: Array<{ name: string, href: string }>
+    links: Array<{ name: string, href: string }>,
 }
 
 const Nav: React.FC<NavProps> = ({links}: NavProps) => {
     const {width: screenWidth} = useWindowDimensions();
-    const [showNav, setShowNav] = useState<boolean>(true);
+    const [showNav, setShowNav] = useState<boolean>(false);
 
-    const navVariants = {
+    useEffect(() => {
+        // @ts-ignore
+        document.querySelector('main').style.display = showNav && screenWidth < screens['md'] ? 'none' : '';
+    }, [screenWidth, showNav]);
+
+    const content = {
         show: {
             display: 'flex',
-            opacity: [0, 1],
-            transition: {duration: .25}
+            opacity: 1,
+            transition: {
+                duration: .25,
+                staggerChildren: .25
+            }
         },
         hide: {
-            opacity: [1, 0],
-            transition: {duration: .25},
-        
+            opacity: 0,
+            transition: {
+                duration: .25,
+                staggerChildren: .25
+            }
+
+        }
+    };
+    const items = {
+        hide: {
+            x: -25,
+            opacity: 0,
+            transition: {duration: .25}
+        },
+        show: {
+            x: 0,
+            opacity: 1,
+            transition: {duration: .25}
         }
     };
 
     return (
-        <nav className={`basis-1/6 z-10`}>
+        <nav
+            className={`basis-1/6 z-10 h-screen absolute md:relative 
+            ${showNav ? 'bg-slate-50' : 'bg-transparent'} transition-all`}>
             <HamButton open={showNav} onClick={() => setShowNav(!showNav)}/>
             <motion.div
-                className={`flex flex-col transition-all items-center justify-center h-screen w-full bg-slate-100 `}
-                variants={navVariants}
-                initial={'show'}
-                animate={showNav ? 'show' : 'hide'}
+                className={`hidden md:flex flex-col items-center justify-center h-full w-full `}
+                variants={content}
+                animate={showNav || screenWidth > screens['md'] ? 'show' : 'hide'}
+                initial={`hide`}
             >
-                <h1
-                    className="font-brand font-semibold text-5xl">
+                <motion.h1
+                    className="font-brand font-semibold text-5xl"
+                    variants={items}
+                >
                     DKM
-                </h1>
-                <div
-                    className="border-t border-slate-400 w-1/3 my-2"/>
-                <ul
-                    className="flex flex-col text-xl font-sans gap-4 ">
+                </motion.h1>
+                <motion.div
+                    className="border-t border-slate-400 w-1/3 my-2"
+                    variants={items}
+                />
+                <motion.ul
+                    className="flex flex-col text-xl font-sans gap-4"
+                    variants={items}
+                >
                     {links.map(link => (
                         <li key={link.name}>
                             <Link href={link.href}>{link.name}</Link>
                         </li>
                     ))}
 
-                </ul>
+                </motion.ul>
             </motion.div>
         </nav>
     );
