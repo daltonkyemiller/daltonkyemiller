@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
@@ -37,6 +37,12 @@ const Photo: React.FC<PhotoProps> = ({photo, idx}) => {
     const mouseY = useSpring(0, mouseSpringOptions);
     const x = useTransform(mouseX, [0, 100], [-50, 50]);
     const y = useTransform(mouseY, [0, 100], [-50, 50]);
+
+    const {ref, inView,} = useInView({
+        threshold: .1
+    });
+
+
     useEffect(() => {
         const mouseXPercent = (mousePos.x / screenWidth) * 100;
         const mouseYPercent = (mousePos.y / screenHeight) * 100;
@@ -45,15 +51,10 @@ const Photo: React.FC<PhotoProps> = ({photo, idx}) => {
     }, [mousePos.x, mousePos.y, screenHeight, screenWidth, mouseX, mouseY]);
 
 
-    const {ref, inView} = useInView({
-        threshold: .1
-    });
-
-
     const variants = {
         show: {
             opacity: 1,
-            scale: 1.3,
+            scale: 1.35,
 
         },
         hide: {
@@ -68,7 +69,7 @@ const Photo: React.FC<PhotoProps> = ({photo, idx}) => {
             className={`relative w-100 h-[300px] overflow-hidden`}
         >
             <motion.div className={`w-full h-full`} variants={variants} animate={inView ? 'show' : 'hide'}
-                        style={screenWidth > screens['md'] ? {x, y} : {}}
+                        style={screenWidth > screens['md'] ? {x, y} : undefined}
             >
                 <Image alt={photo} src={photo} layout={'fill'} objectFit={`cover`} priority={inView}/>
 
