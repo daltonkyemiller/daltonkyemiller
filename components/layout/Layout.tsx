@@ -21,7 +21,7 @@ const Layout: React.FC<Props> = (props: Props) => {
                     href: '/resume'
                 }]}
             />
-            <main className={`basis-full md:basis-5/6 p-2`}>
+            <main className={`relative basis-full md:basis-5/6 p-2`}>
                 {props.children}
             </main>
         </>
