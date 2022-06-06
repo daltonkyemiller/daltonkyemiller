@@ -1,5 +1,5 @@
-import React, { useRef } from 'react';
-import { useMousePosition } from '@hooks';
+import React, { useLayoutEffect, useRef, useState } from 'react';
+import { useSize } from '@hooks';
 
 type VisGridProps = {
     width: string;
@@ -9,6 +9,7 @@ type VisGridProps = {
     thickness?: string;
 };
 
+
 const VisGrid: React.FC<VisGridProps> = (
     {
         height,
@@ -17,8 +18,12 @@ const VisGrid: React.FC<VisGridProps> = (
         cols = 12,
         thickness = '2px'
     }) => {
+    const grid = useRef(null);
+    const gridSize = useSize(grid);
+
     return (
         <div className={`absolute grid`}
+             ref={grid}
              style={{
                  width,
                  height,
@@ -32,7 +37,7 @@ const VisGrid: React.FC<VisGridProps> = (
                          className={``}
                          style={{
                              borderWidth: thickness,
-                             backgroundImage: `linear-gradient(-45deg, transparent, #BBB)`,
+                             // backgroundImage: `linear-gradient(-45deg, transparent, #BBB)`,
                          }}
 
                     />
