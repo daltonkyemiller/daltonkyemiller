@@ -2,7 +2,7 @@ import { MutableRefObject, RefObject, useEffect, useLayoutEffect, useState } fro
 import useResizeObserver from '@react-hook/resize-observer';
 
 const useSize = (target: RefObject<HTMLElement> | null) => {
-    const [size, setSize] = useState<DOMRectReadOnly>(new DOMRectReadOnly());
+    const [size, setSize] = useState<DOMRectReadOnly>();
     useEffect(() => {
         target?.current && setSize(target.current.getBoundingClientRect());
     }, [target]);

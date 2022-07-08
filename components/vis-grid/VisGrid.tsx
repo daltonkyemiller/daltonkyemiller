@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useSize } from '@hooks';
 
 type VisGridProps = {
@@ -14,12 +14,22 @@ const VisGrid: React.FC<VisGridProps> = (
     {
         height,
         width,
-        rows = 12,
-        cols = 12,
+        rows,
+        cols,
         thickness = '2px'
     }) => {
     const grid = useRef(null);
     const gridSize = useSize(grid);
+    const [_rows, setRows] = useState(10);
+    const [_cols, setCols] = useState(10);
+    useEffect(() => {
+        if (gridSize !== undefined) {
+            const aspectRatio = gridSize.width / gridSize.height;
+            if (rows === undefined && cols !== undefined) {
+                setRows(Math.floor(cols * aspectRatio));
+            }
+        }
+    }, [cols, gridSize, rows]);
 
     return (
         <div className={`absolute grid`}
@@ -27,12 +37,12 @@ const VisGrid: React.FC<VisGridProps> = (
              style={{
                  width,
                  height,
-                 gridTemplateColumns: `repeat(${cols}, 1fr)`,
-                 gridTemplateRows: `repeat(${rows}, 1fr)`,
+                 gridTemplateColumns: `repeat(${_cols}, 1fr)`,
+                 gridTemplateRows: `repeat(${_rows}, 1fr)`
              }}
         >
             {
-                [...Array(rows * cols)].map((_, idx) => (
+                [...Array(25)].map((_, idx) => (
                     <div key={`line-${idx}`}
                          className={``}
                          style={{
@@ -43,7 +53,7 @@ const VisGrid: React.FC<VisGridProps> = (
                     />
                 ))
             }
-            <div className={`absolute inset-0 bg-gradient-to-br from-slate-900 to-slate-400 mix-blend-overlay`}/>
+            {/*<div className={`absolute inset-0 bg-gradient-to-br from-slate-900 to-slate-400 mix-blend-overlay`}/>*/}
         </div>
     );
 };
