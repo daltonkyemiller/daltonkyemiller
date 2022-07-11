@@ -19,6 +19,7 @@ const PhotoGrid: React.FC<PhotoGridProps> = ({photos}: PhotoGridProps) => {
                 photos.map((photo, idx) => (
                     <motion.div key={photo} layoutId={photo}>
                         <Photo photo={photo} idx={idx}/>
+                        <h1 className={`text-2xl font-bold`}>Test</h1>
                     </motion.div>
                 ))
             }
