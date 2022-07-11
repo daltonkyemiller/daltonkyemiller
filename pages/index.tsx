@@ -1,7 +1,5 @@
 import type { GetStaticProps, NextPage } from 'next';
-import { PhotoGrid } from '@components';
-import Image from 'next/future/image';
-import acrylic from '/public/img/temp/acrylic.jpeg';
+import acrylic from '/public/img/temp/acrylic.jpg';
 import {
     motion,
     useInView,
@@ -29,7 +27,7 @@ const Home: NextPage<HomeProps> = ({}) => {
             >
                 <motion.h1
                     style={{ y }}
-                    className={`pointer-events-none absolute z-10 text-5xl font-bold tracking-wide text-gray-50 mix-blend-difference`}
+                    className={`pointer-events-none absolute z-10 text-5xl font-bold tracking-wide text-gray-50 `}
                 >
                     WHO AM I?
                 </motion.h1>
