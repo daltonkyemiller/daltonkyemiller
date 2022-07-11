@@ -1,5 +1,5 @@
-import Nav from './nav';
-import PhotoGrid from './photo-grid';
+import Nav from './Nav';
+import PhotoGrid from './PhotoGrid';
 import VisGrid from './vis-grid';
 
 export { Nav, PhotoGrid, VisGrid };
