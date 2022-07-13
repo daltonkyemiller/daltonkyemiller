@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ForwardedRef, forwardRef, useState } from 'react';
 import Image, { StaticImageData } from 'next/future/image';
 import { AnimatePresence, motion } from 'framer-motion';
 
@@ -11,35 +11,33 @@ type ImageProps = {
     onLoad?: () => void;
 };
 
-const ImageLoader = ({
-    src,
-    alt,
-    delay,
-    className,
-    style,
-    onLoad,
-}: ImageProps) => {
-    const [isLoaded, setIsLoaded] = useState(false);
-    return (
-        <span className={`isolate`}>
-            <AnimatePresence exitBeforeEnter>
-                {!isLoaded && <ImageSkeleton />}
-            </AnimatePresence>
-            <Image
-                src={src}
-                alt={alt}
-                className={`${className}`}
-                style={{ ...style }}
-                onLoadingComplete={() => {
-                    setTimeout(() => {
-                        setIsLoaded(true);
-                        if (onLoad) onLoad();
-                    }, delay ?? 1000);
-                }}
-            />
-        </span>
-    );
-};
+const ImageLoader = forwardRef(
+    (
+        { src, alt, delay, className, style, onLoad }: ImageProps,
+        ref: ForwardedRef<any>
+    ) => {
+        const [isLoaded, setIsLoaded] = useState(false);
+        return (
+            <span className={`isolate ${className}`} ref={ref}>
+                <AnimatePresence exitBeforeEnter>
+                    {!isLoaded && <ImageSkeleton />}
+                </AnimatePresence>
+                <Image
+                    className={`h-full w-full object-cover`}
+                    src={src}
+                    alt={alt}
+                    onLoadingComplete={() => {
+                        setTimeout(() => {
+                            setIsLoaded(true);
+                            if (onLoad) onLoad();
+                        }, delay ?? 1000);
+                    }}
+                />
+            </span>
+        );
+    }
+);
+ImageLoader.displayName = 'ImageLoader';
 
 const ImageSkeleton = () => {
     const shimmerVariants = {
@@ -53,7 +51,7 @@ const ImageSkeleton = () => {
     };
     return (
         <motion.div
-            className={`absolute z-10 h-full w-full bg-gray-900`}
+            className={`absolute h-full w-full bg-gray-900`}
             variants={shimmerVariants}
             initial={`initial`}
             animate={`shimmer`}

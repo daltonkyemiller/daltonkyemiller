@@ -1,5 +1,5 @@
 import type { GetStaticProps, NextPage } from 'next';
-import acrylic from '/public/img/temp/acrylic.jpg';
+import acrylic from '/public/img/temp/6.jpg';
 import {
     motion,
     useInView,
@@ -7,54 +7,35 @@ import {
     useViewportScroll,
 } from 'framer-motion';
 import ImageLoader from '../components/ImageLoader/ImageLoader';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import useMeasure from 'react-use-measure';
 
 type HomeProps = {};
 
 const Home: NextPage<HomeProps> = ({}) => {
     const { scrollX, scrollY } = useViewportScroll();
-    const y = useTransform(scrollY, [0, 500], [0, -500]);
-    const y2 = useTransform(scrollY, [400, 750], [1000, 0]);
+    const [photoRef, { height }] = useMeasure();
+    const y = useTransform(scrollY, [0, 1000], [0, 1000]);
+    const color = useTransform(y, [height, height], ['#fff', '#000']);
+
     const daltonRef = useRef(null);
     const daltonInView = useInView(daltonRef);
     return (
         <div
-            className={`relative flex min-h-[500vh] flex-col 
-        items-center `}
+            className={`relative flex flex-col 
+        items-center`}
         >
-            <div
-                className={`isolate flex h-screen max-h-screen items-center justify-center`}
+            <ImageLoader
+                src={acrylic}
+                alt={'main'}
+                className={`relative aspect-square w-full  overflow-hidden rounded-[50%_25%] grayscale`}
+            />
+            <motion.h1
+                className="absolute  left-0 top-[10%] rounded-sm bg-zinc-900 p-3 text-7xl font-black text-zinc-50"
+                style={{ y }}
             >
-                <motion.h1
-                    style={{ y }}
-                    className={`pointer-events-none absolute z-10 text-5xl font-bold tracking-wide text-gray-50 `}
-                >
-                    WHO AM I?
-                </motion.h1>
-                <motion.h1
-                    ref={daltonRef}
-                    style={{ x: y2, y: 700 }}
-                    className={`pointer-events-none absolute z-10 text-5xl font-bold tracking-wide text-gray-900 `}
-                >
-                    Dalton.
-                </motion.h1>
-                <motion.h1
-                    initial={{ opacity: 0 }}
-                    style={{ y: 1250 }}
-                    animate={{ opacity: !daltonInView ? 1 : 0 }}
-                >
-                    Okay?
-                </motion.h1>
-                <div
-                    className={`relative h-[1000px] max-w-full overflow-hidden rounded-[10%_50%] transition-all`}
-                >
-                    <ImageLoader
-                        src={acrylic}
-                        alt={`plants`}
-                        className={`contrast-200 grayscale`}
-                    />
-                </div>
-            </div>
+                WHO AM I?
+            </motion.h1>
         </div>
     );
 };
