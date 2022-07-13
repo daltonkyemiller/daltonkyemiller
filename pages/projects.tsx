@@ -7,6 +7,8 @@ type ProjectsProps = {
 };
 
 const Projects: React.FC<ProjectsProps> = ({ projects }: ProjectsProps) => {
+    console.log(projects.map((p) => p.photos));
+
     return (
         <>
             <PhotoGrid photos={projects.map((project) => project.photos)} />

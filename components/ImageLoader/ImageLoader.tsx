@@ -7,13 +7,14 @@ type ImageProps = {
     alt: string;
     delay?: number;
     className?: string;
+    imgClassName?: string;
     style?: React.CSSProperties;
     onLoad?: () => void;
 };
 
 const ImageLoader = forwardRef(
     (
-        { src, alt, delay, className, style, onLoad }: ImageProps,
+        { src, alt, delay, className, imgClassName, style, onLoad }: ImageProps,
         ref: ForwardedRef<any>
     ) => {
         const [isLoaded, setIsLoaded] = useState(false);
@@ -23,7 +24,7 @@ const ImageLoader = forwardRef(
                     {!isLoaded && <ImageSkeleton />}
                 </AnimatePresence>
                 <Image
-                    className={`h-full w-full object-cover`}
+                    className={imgClassName ?? 'h-full w-full object-cover'}
                     src={src}
                     alt={alt}
                     onLoadingComplete={() => {
