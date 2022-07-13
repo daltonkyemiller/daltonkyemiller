@@ -5,6 +5,8 @@ import { AnimatePresence, motion } from 'framer-motion';
 type ImageProps = {
     src: string | StaticImageData;
     alt: string;
+    width?: number;
+    height?: number;
     delay?: number;
     className?: string;
     imgClassName?: string;
@@ -14,7 +16,17 @@ type ImageProps = {
 
 const ImageLoader = forwardRef(
     (
-        { src, alt, delay, className, imgClassName, style, onLoad }: ImageProps,
+        {
+            src,
+            alt,
+            width,
+            height,
+            delay,
+            className,
+            imgClassName,
+            style,
+            onLoad,
+        }: ImageProps,
         ref: ForwardedRef<any>
     ) => {
         const [isLoaded, setIsLoaded] = useState(false);
@@ -27,6 +39,8 @@ const ImageLoader = forwardRef(
                     className={imgClassName ?? 'h-full w-full object-cover'}
                     src={src}
                     alt={alt}
+                    width={width ?? 1000}
+                    height={height ?? 1000}
                     onLoadingComplete={() => {
                         setTimeout(() => {
                             setIsLoaded(true);

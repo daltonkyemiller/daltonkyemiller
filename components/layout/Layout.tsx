@@ -22,11 +22,11 @@ const Layout: React.FC<Props> = (props: Props) => {
                     },
                     {
                         name: 'About',
-                        href: '/about',
+                        href: '/#who-am-i',
                     },
                     {
-                        name: 'Resume',
-                        href: '/resume',
+                        name: 'Projects',
+                        href: '/#projects',
                     },
                 ]}
             />

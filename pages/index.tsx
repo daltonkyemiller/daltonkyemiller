@@ -27,17 +27,18 @@ const Home: NextPage<HomeProps> = ({}) => {
     const MotionImageLoader = motion(ImageLoader);
 
     const inViewOpts = {
-        rootMargin: '-200px',
+        rootMargin: '-10%',
     };
 
-    const { ref: imageInViewRef, inView: imageInView } = useInView(inViewOpts);
     const { ref: whoAmIInViewRef, inView: whoAmIInView } =
         useInView(inViewOpts);
+    const { ref: projectsRef, inView: projectsInView } = useInView(inViewOpts);
 
     const cont = {
         in: {
             opacity: 1,
             transition: {
+                duration: 0.25,
                 staggerChildren: 0.25,
             },
         },
@@ -62,69 +63,73 @@ const Home: NextPage<HomeProps> = ({}) => {
             <ImageLoader
                 src={acrylic}
                 alt={'main'}
-                ref={mergeRefs([photoRef, imageInViewRef])}
-                className={`relative mb-[100px] aspect-square w-full overflow-hidden rounded-[50%_25%] grayscale`}
+                ref={photoRef}
+                className={`relative aspect-square w-full overflow-hidden rounded-[50%_25%] grayscale`}
             />
-            <motion.h1
+            <motion.a
                 className="absolute left-0 cursor-pointer bg-zinc-900 p-3 text-7xl font-black text-zinc-50"
                 style={{ y }}
-                onClick={() => window.scrollTo(0, bottom)}
+                href={'#who-am-i'}
             >
                 WHO I ILLZ?
-            </motion.h1>
-            <AnimatePresence>
-                {!imageInView && (
-                    <motion.section
-                        id={'about-me'}
-                        variants={cont}
-                        initial="out"
-                        animate="in"
-                        exit="out"
-                        className="flex w-auto flex-col pt-10"
-                        ref={whoAmIInViewRef}
-                    >
-                        <ImageLoader
-                            src={me}
-                            alt={'Me'}
-                            className={
-                                'relative aspect-square w-1/3 overflow-hidden rounded-[25%_10%_25%] object-top grayscale'
-                            }
-                            imgClassName={`object-cover`}
-                        />
-                        <motion.p
-                            className={`self-start pt-5`}
-                            variants={fadeIn}
-                        >
-                            Christianity generally born across notebook quotes
-                            cubic, sharing settle prague. Johnston rover lived
-                            furnished teenage. Diploma spam sig sony round pos
-                            prime, grows introducing obligations sugar wear
-                            brother relate, activities peripheral frequent
-                            bleeding pride wheels reward, parental
-                            pays.Christianity generally born across notebook
-                            quotes cubic, sharing settle prague. Johnston rover
-                            lived furnished teenage. Diploma spam sig sony round
-                            pos prime, grows introducing obligations sugar wear
-                            brother relate, activities peripheral frequent
-                            bleeding pride wheels reward, parental pays.
-                        </motion.p>
-                    </motion.section>
-                )}
-            </AnimatePresence>
-            <AnimatePresence exitBeforeEnter>
-                {!whoAmIInView && !imageInView && (
-                    <motion.section
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        id="projects"
-                        className={`flex w-full flex-col pt-5`}
-                    >
-                        <h1 className={`pb-5 text-6xl font-black`}>Projects</h1>
-                        <PhotoGrid photos={randomPhotos} />
-                    </motion.section>
-                )}
-            </AnimatePresence>
+            </motion.a>
+
+            {/*Who Am I */}
+            <motion.section
+                id={'who-am-i'}
+                variants={cont}
+                initial="out"
+                animate={whoAmIInView ? 'in' : 'out'}
+                exit="out"
+                className="flex w-auto flex-col pt-[150px]"
+                ref={whoAmIInViewRef}
+            >
+                <ImageLoader
+                    src={me}
+                    alt={'Me'}
+                    className={
+                        'relative aspect-square w-1/3 overflow-hidden rounded-[25%_10%_25%] object-top grayscale'
+                    }
+                    imgClassName={`object-cover`}
+                />
+                <motion.p className={`self-start pt-5`} variants={fadeIn}>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                    do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    Duis aute irure dolor in reprehenderit in voluptate velit
+                    esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+                    occaecat cupidatat non proident, sunt in culpa qui officia
+                    deserunt mollit anim id est laborum.Ut enim ad minim veniam,
+                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+                    ea commodo consequat. Duis aute irure dolor in reprehenderit
+                    in voluptate velit esse cillum dolore eu fugiat nulla
+                    pariatur. Excepteur sint occaecat cupidatat non proident,
+                    sunt in culpa qui officia deserunt mollit anim id est
+                    laborum.
+                </motion.p>
+            </motion.section>
+
+            {/* Projects */}
+            <motion.section
+                variants={cont}
+                initial="out"
+                animate={projectsInView ? 'in' : 'out'}
+                exit="out"
+                id="projects"
+                className={`flex w-full flex-col pt-5`}
+                ref={projectsRef}
+            >
+                <motion.h1
+                    className={`pb-5 text-6xl font-black`}
+                    variants={fadeIn}
+                >
+                    Projects
+                </motion.h1>
+                <motion.div variants={fadeIn}>
+                    <PhotoGrid photos={randomPhotos} />
+                </motion.div>
+            </motion.section>
         </div>
     );
 };
