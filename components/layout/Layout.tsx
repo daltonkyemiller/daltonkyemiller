@@ -2,6 +2,8 @@ import React, { ReactNode } from 'react';
 import { Nav } from '@components';
 import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion';
 import Head from 'next/head';
+import ThemeSwitcher from '../ThemeSwitcher/ThemeSwitcher';
+import { ThemeProvider } from '../../utils/theme/themeContext';
 
 type Props = {
     children: any;
@@ -30,16 +32,21 @@ const Layout: React.FC<Props> = (props: Props) => {
                     },
                 ]}
             />
-            <div id="grain" />
-            <AnimatePresence
-                exitBeforeEnter
-                initial={false}
-                onExitComplete={() => window.scrollTo(0, 0)}
-            >
-                <motion.main className={`relative basis-full p-2 md:basis-5/6`}>
-                    {props.children}
-                </motion.main>
-            </AnimatePresence>
+            <ThemeProvider>
+                <div id="grain" />
+                <ThemeSwitcher />
+                <AnimatePresence
+                    exitBeforeEnter
+                    initial={false}
+                    onExitComplete={() => window.scrollTo(0, 0)}
+                >
+                    <motion.main
+                        className={`relative basis-full p-2 md:basis-5/6`}
+                    >
+                        {props.children}
+                    </motion.main>
+                </AnimatePresence>
+            </ThemeProvider>
         </>
     );
 };

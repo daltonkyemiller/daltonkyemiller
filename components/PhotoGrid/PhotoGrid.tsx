@@ -62,7 +62,7 @@ export const Photo: React.FC<PhotoProps> = ({ photo, idx }) => {
     return (
         <motion.div
             ref={ref}
-            className={`w-100 relative h-[300px] overflow-hidden`}
+            className={`w-100 relative h-[300px] overflow-hidden rounded-lg`}
         >
             <motion.div
                 className={`h-full w-full`}
@@ -71,7 +71,7 @@ export const Photo: React.FC<PhotoProps> = ({ photo, idx }) => {
                 animate={inView && isLoaded ? 'show' : 'hide'}
                 style={screenWidth > screens['md'] ? { x, y } : undefined}
             >
-                <Link href={`/project/test?id=${photo}`}>
+                <Link href={`/project/test?id=${photo}`} className={``}>
                     <a>
                         <ImageLoader
                             alt={photo}
