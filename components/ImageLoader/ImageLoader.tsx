@@ -1,10 +1,12 @@
 import React, { ForwardedRef, forwardRef, useState } from 'react';
 import Image, { StaticImageData } from 'next/future/image';
 import { AnimatePresence, motion } from 'framer-motion';
+import { constants } from 'os';
 
 type ImageProps = {
     src: string | StaticImageData;
     alt: string;
+    priority?: boolean;
     width?: number;
     height?: number;
     delay?: number;
@@ -19,6 +21,7 @@ const ImageLoader = forwardRef(
         {
             src,
             alt,
+            priority,
             width,
             height,
             delay,
@@ -39,6 +42,7 @@ const ImageLoader = forwardRef(
                     className={imgClassName ?? 'h-full w-full object-cover'}
                     src={src}
                     alt={alt}
+                    priority={priority ?? false}
                     width={width ?? 1000}
                     height={height ?? 1000}
                     onLoadingComplete={() => {

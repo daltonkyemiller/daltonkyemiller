@@ -86,6 +86,7 @@ const Home: NextPage<HomeProps> = ({}) => {
                     className={
                         'relative aspect-square w-1/3 overflow-hidden rounded-[25%_10%_25%] object-top '
                     }
+                    priority={true}
                     imgClassName={`object-cover`}
                 />
                 <motion.p className={`self-start pt-5`} variants={fadeIn}>
@@ -123,7 +124,7 @@ const Home: NextPage<HomeProps> = ({}) => {
                     Projects
                 </motion.h1>
                 <motion.div variants={fadeIn}>
-                    <PhotoGrid photos={randomPhotos} />
+                    {/*<PhotoGrid photos={randomPhotos} />*/}
                 </motion.div>
             </motion.section>
         </div>

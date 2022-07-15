@@ -16,24 +16,24 @@ const Layout: React.FC<Props> = (props: Props) => {
                 <title>Dalton Kye Miller</title>
                 <link rel="manifest" href="/site.webmanifest" />
             </Head>
-            <Nav
-                links={[
-                    {
-                        name: 'Home',
-                        href: '/',
-                    },
-                    {
-                        name: 'About',
-                        href: '/#who-am-i',
-                    },
-                    {
-                        name: 'Projects',
-                        href: '/#projects',
-                    },
-                ]}
-            />
+            {/*<Nav*/}
+            {/*    links={[*/}
+            {/*        {*/}
+            {/*            name: 'Home',*/}
+            {/*            href: '/',*/}
+            {/*        },*/}
+            {/*        {*/}
+            {/*            name: 'About',*/}
+            {/*            href: '/#who-am-i',*/}
+            {/*        },*/}
+            {/*        {*/}
+            {/*            name: 'Projects',*/}
+            {/*            href: '/#projects',*/}
+            {/*        },*/}
+            {/*    ]}*/}
+            {/*/>*/}
             <ThemeProvider>
-                <div id="grain" />
+                {/*<div id="grain" />*/}
                 <ThemeSwitcher />
                 <AnimatePresence
                     exitBeforeEnter
