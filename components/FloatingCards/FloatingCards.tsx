@@ -1,4 +1,4 @@
-import { motion, useMotionValue } from 'framer-motion';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
 import React, { PropsWithChildren, useEffect, useState } from 'react';
 import { randomBetween, range } from '../../utils/helpers';
 import { useMousePosition, useWindowDimensions } from '@hooks';
@@ -6,6 +6,7 @@ import useMeasure from 'react-use-measure';
 import ImageLoader from '../ImageLoader/ImageLoader';
 import { projects } from '../../utils/mock/data';
 import Link from 'next/link';
+import { Project } from '../../utils/types';
 
 type FloatingCardsProps = {};
 
@@ -29,9 +30,8 @@ const FloatingCards = ({}: FloatingCardsProps) => {
                     idx={i}
                     mousePos={mousePos}
                     windowDimensions={windowDimensions}
-                >
-                    <h1>{_.name}</h1>
-                </FloatingCard>
+                    project={projects[i]}
+                />
             ))}
         </div>
     );
@@ -41,12 +41,14 @@ type FloatingCardProps = {
     idx: number;
     mousePos: { x: number; y: number };
     windowDimensions: { width: number; height: number };
+    project: Project;
 };
 
 const FloatingCard = ({
     idx,
     mousePos,
     windowDimensions,
+    project,
     children,
 }: PropsWithChildren<FloatingCardProps>) => {
     const [cardRef, { top, left }] = useMeasure();
@@ -56,8 +58,8 @@ const FloatingCard = ({
         x: randomBetween(-off, off),
         y: randomBetween(-off, off),
     });
-    const x = useMotionValue(0);
-    const y = useMotionValue(0);
+    const x = useSpring(0, { stiffness: 300, damping: 30 });
+    const y = useSpring(0, { stiffness: 300, damping: 30 });
 
     useEffect(() => {
         console.log(mousePos.x - left);
@@ -91,14 +93,16 @@ const FloatingCard = ({
                 gridArea: `${letters[idx]}`,
             }}
         >
-            <Link href={`/project/${idx}`}>
+            <Link href={`/project/${project.path}`}>
                 <motion.div
-                    layoutId={idx.toString()}
+                    layoutId={project.path}
                     ref={cardRef}
                     className={`flex cursor-pointer flex-col rounded-xl p-5`}
                     style={{ x, y }}
                 >
-                    {children}
+                    <h1 className={`whitespace-nowrap text-3xl font-bold`}>
+                        {project.name}
+                    </h1>
                 </motion.div>
             </Link>
         </div>

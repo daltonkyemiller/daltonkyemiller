@@ -11,27 +11,44 @@ type NameProps = {};
 const Project: NextPage<NameProps> = ({}) => {
     const router = useRouter();
     const { name } = router.query;
+    const project = projects.find((p) => p.path === name);
 
+    const fade = {
+        in: {
+            opacity: 1,
+        },
+        out: {
+            opacity: 0,
+        },
+    };
     return (
-        <div className={'min-h-screen'}>
-            <motion.div className={``} layoutId={name}>
-                <h1 className={`p-5 text-6xl font-bold`}>
-                    {projects[parseInt(name)]?.name}
-                </h1>
+        <div className={'min-h-screen min-w-full'}>
+            <motion.div
+                variants={fade}
+                initial="out"
+                animate="in"
+                exit="out"
+                transition={{ duration: 0.5, delay: 0.5 }}
+                className={`h-[300px] w-full`}
+            >
+                <ImageLoader src={project!.cover} className={`h-full w-full`} />
             </motion.div>
             <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.5, delay: 0.5 }}
                 className={``}
+                layoutId={typeof name === 'string' ? name : name![0]}
             >
-                <ImageLoader
-                    src={
-                        'https://raw.githubusercontent.com/daltonkyemiller/codeup-web-exercises/main/readme/images/weather_map_desktop.gif'
-                    }
-                />
+                <h1 className={`p-5 text-6xl font-bold`}>{project?.name}</h1>
             </motion.div>
+            <motion.p
+                variants={fade}
+                initial="out"
+                animate="in"
+                exit="out"
+                transition={{ delay: 1, duration: 1 }}
+                className={`p-5 text-xl`}
+            >
+                {project?.description}
+            </motion.p>
         </div>
     );
 };

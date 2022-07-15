@@ -27,7 +27,7 @@ const ImageLoader = forwardRef(
     ) => {
         const [isLoaded, setIsLoaded] = useState(false);
         return (
-            <span className={`${className}`} ref={ref} style={style}>
+            <span className={`relative ${className}`} ref={ref} style={style}>
                 <AnimatePresence exitBeforeEnter>
                     {!isLoaded && <ImageSkeleton />}
                 </AnimatePresence>

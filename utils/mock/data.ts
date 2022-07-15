@@ -1,3 +1,6 @@
+import { Project } from '../types';
+import { randomFromArray } from '../helpers';
+
 export const randomPhotos = [
     'https://picsum.photos/seed/98094/1920/1080',
     'https://picsum.photos/seed/96324/1920/1080',
@@ -26,25 +29,44 @@ export const randomPhotos = [
     'https://picsum.photos/seed/77429/1920/1080',
 ];
 
-export const projects = [
+export const projects: Project[] = [
     {
-        name: 'Project 1',
-        path: 'project-1',
+        name: 'Capstone',
+        description:
+            'Counters marc lightbox trends moore amanda single, belarus philosophy larger authorized kansas scratch profiles, goat jobs tradition hiring exclusion must critical, blonde join six. ',
+        path: 'capstone',
+        images: [randomFromArray(randomPhotos), randomFromArray(randomPhotos)],
+        cover: randomFromArray(randomPhotos),
     },
     {
-        name: 'Project 2',
-        path: 'project-2',
+        name: 'React Movies App',
+        description:
+            'While trusts open photograph treated cultural marked, protein toolbox bargains striking. ',
+        path: 'react-movies-app',
+        images: [randomFromArray(randomPhotos), randomFromArray(randomPhotos)],
+        cover: randomFromArray(randomPhotos),
     },
     {
-        name: 'Project 3',
-        path: 'project-3',
+        name: 'Weather Map App',
+        description:
+            'Gossip liquid baseball if seekers cannon hope, exports motorcycles memorabilia triple activated volt crops, doctors cellular. ',
+        path: 'weather-map-app',
+        images: [randomFromArray(randomPhotos), randomFromArray(randomPhotos)],
+        cover: randomFromArray(randomPhotos),
     },
     {
-        name: 'Project 4',
-        path: 'project-4',
+        name: 'Coffee Project',
+        description:
+            'Keyboard habitat cruises promoting greetings sponsor crazy, carroll operated phys enclosure released final plug, devoted cables gambling viewpicture develops louisville cooked, bang.',
+        path: 'coffee-project',
+        images: [randomFromArray(randomPhotos), randomFromArray(randomPhotos)],
+        cover: randomFromArray(randomPhotos),
     },
     {
-        name: 'Project 5',
-        path: 'project-5',
+        name: 'Vanilla Movies App',
+        description: 'Fears ethernet camera reading game.',
+        path: 'vanilla-movies-app',
+        images: [randomFromArray(randomPhotos), randomFromArray(randomPhotos)],
+        cover: randomFromArray(randomPhotos),
     },
 ];

@@ -33,16 +33,14 @@ const Layout: React.FC<Props> = (props: Props) => {
             {/*    ]}*/}
             {/*/>*/}
             <ThemeProvider>
-                <div id="grain" />
+                {/*<div id="grain" />*/}
                 <ThemeSwitcher />
                 <AnimatePresence
                     exitBeforeEnter
                     initial={false}
                     onExitComplete={() => window.scrollTo(0, 0)}
                 >
-                    <motion.main
-                        className={`relative basis-full p-2 md:basis-5/6`}
-                    >
+                    <motion.main className={`relative basis-full`}>
                         {props.children}
                     </motion.main>
                 </AnimatePresence>
