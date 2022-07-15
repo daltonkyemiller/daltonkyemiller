@@ -1,8 +1,11 @@
 import { motion, useMotionValue } from 'framer-motion';
-import React, { useEffect, useState } from 'react';
+import React, { PropsWithChildren, useEffect, useState } from 'react';
 import { randomBetween, range } from '../../utils/helpers';
 import { useMousePosition, useWindowDimensions } from '@hooks';
 import useMeasure from 'react-use-measure';
+import ImageLoader from '../ImageLoader/ImageLoader';
+import { projects } from '../../utils/mock/data';
+import Link from 'next/link';
 
 type FloatingCardsProps = {};
 
@@ -11,22 +14,24 @@ const FloatingCards = ({}: FloatingCardsProps) => {
     const windowDimensions = useWindowDimensions();
     return (
         <div
-            className={`grid aspect-square grid-cols-3 gap-10`}
+            className={`grid aspect-square max-h-[90vmin] grid-cols-3 gap-10`}
             style={{
                 gridTemplateAreas: `
                 "a . b"
-                "c d e"
-             
+                ". c ."
+                "d . e"
              `,
             }}
         >
-            {[1, 2, 3, 4, 6].map((_, i) => (
+            {projects.map((_, i) => (
                 <FloatingCard
                     key={i}
                     idx={i}
                     mousePos={mousePos}
                     windowDimensions={windowDimensions}
-                />
+                >
+                    <h1>{_.name}</h1>
+                </FloatingCard>
             ))}
         </div>
     );
@@ -42,9 +47,10 @@ const FloatingCard = ({
     idx,
     mousePos,
     windowDimensions,
-}: FloatingCardProps) => {
+    children,
+}: PropsWithChildren<FloatingCardProps>) => {
     const [cardRef, { top, left }] = useMeasure();
-    const off = 10;
+    const off = 25;
     const letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
     const [randomOffset, setRandomOffset] = useState({
         x: randomBetween(-off, off),
@@ -57,11 +63,11 @@ const FloatingCard = ({
         console.log(mousePos.x - left);
         // console.log(mousePos.x - left);
         x.set(
-            range(mousePos.x - left, 0, windowDimensions.width, 0, 10) *
+            range(mousePos.x - left, 0, windowDimensions.width, 0, off) *
                 randomOffset.x
         );
         y.set(
-            range(mousePos.y - top, 0, windowDimensions.height, 0, 10) *
+            range(mousePos.y - top, 0, windowDimensions.height, 0, off) *
                 randomOffset.y
         );
     }, [
@@ -79,19 +85,22 @@ const FloatingCard = ({
 
     return (
         <div
-            // className={`animate-bounce`}
+            className={`animate-pulse`}
             style={{
-                animationDelay: `${idx * 0.1}s`,
+                animationDelay: `${idx * 0.5}s`,
                 gridArea: `${letters[idx]}`,
             }}
         >
-            <motion.div
-                ref={cardRef}
-                className={`flex h-[100px] w-[150px] items-center justify-center bg-amber-500`}
-                style={{ x, y }}
-            >
-                <h1>Test</h1>
-            </motion.div>
+            <Link href={`/project/${idx}`}>
+                <motion.div
+                    layoutId={idx.toString()}
+                    ref={cardRef}
+                    className={`flex cursor-pointer flex-col rounded-xl p-5`}
+                    style={{ x, y }}
+                >
+                    {children}
+                </motion.div>
+            </Link>
         </div>
     );
 };

@@ -3,12 +3,12 @@ const nextConfig = async () => ({
     reactStrictMode: true,
     experimental: {
         images: {
-            allowFutureImage: true
-        }
+            allowFutureImage: true,
+        },
     },
     images: {
-        domains: ['picsum.photos']
-    }
+        domains: ['picsum.photos', 'raw.githubusercontent.com'],
+    },
 });
 
 module.exports = nextConfig;

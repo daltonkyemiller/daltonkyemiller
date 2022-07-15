@@ -25,3 +25,26 @@ export const randomPhotos = [
     'https://picsum.photos/seed/98916/1920/1080',
     'https://picsum.photos/seed/77429/1920/1080',
 ];
+
+export const projects = [
+    {
+        name: 'Project 1',
+        path: 'project-1',
+    },
+    {
+        name: 'Project 2',
+        path: 'project-2',
+    },
+    {
+        name: 'Project 3',
+        path: 'project-3',
+    },
+    {
+        name: 'Project 4',
+        path: 'project-4',
+    },
+    {
+        name: 'Project 5',
+        path: 'project-5',
+    },
+];

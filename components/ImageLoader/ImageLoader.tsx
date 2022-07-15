@@ -1,18 +1,11 @@
 import React, { ForwardedRef, forwardRef, useState } from 'react';
-import Image, { StaticImageData } from 'next/future/image';
+import Image, { ImageProps, StaticImageData } from 'next/future/image';
 import { AnimatePresence, motion } from 'framer-motion';
 import { constants } from 'os';
 
-type ImageProps = {
-    src: string | StaticImageData;
-    alt: string;
-    priority?: boolean;
-    width?: number;
-    height?: number;
+type ImageLoaderProps = ImageProps & {
     delay?: number;
-    className?: string;
     imgClassName?: string;
-    style?: React.CSSProperties;
     onLoad?: () => void;
 };
 
@@ -29,7 +22,7 @@ const ImageLoader = forwardRef(
             imgClassName,
             style,
             onLoad,
-        }: ImageProps,
+        }: ImageLoaderProps,
         ref: ForwardedRef<any>
     ) => {
         const [isLoaded, setIsLoaded] = useState(false);

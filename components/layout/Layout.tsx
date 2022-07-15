@@ -33,7 +33,7 @@ const Layout: React.FC<Props> = (props: Props) => {
             {/*    ]}*/}
             {/*/>*/}
             <ThemeProvider>
-                {/*<div id="grain" />*/}
+                <div id="grain" />
                 <ThemeSwitcher />
                 <AnimatePresence
                     exitBeforeEnter
