@@ -27,7 +27,7 @@ const ImageLoader = forwardRef(
     ) => {
         const [isLoaded, setIsLoaded] = useState(false);
         return (
-            <span className={`relative ${className}`} ref={ref} style={style}>
+            <div className={`relative ${className}`} ref={ref} style={style}>
                 <AnimatePresence exitBeforeEnter>
                     {!isLoaded && <ImageSkeleton />}
                 </AnimatePresence>
@@ -45,7 +45,7 @@ const ImageLoader = forwardRef(
                         }, delay ?? 1000);
                     }}
                 />
-            </span>
+            </div>
         );
     }
 );

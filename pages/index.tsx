@@ -7,24 +7,23 @@ import useMeasure from 'react-use-measure';
 import { PhotoGrid } from '@components';
 import { randomPhotos } from '../utils/mock/data';
 import { useInView } from 'react-intersection-observer';
+import { useContext } from 'react';
+import { ThemeContext } from '../utils/theme/themeContext';
+import { useWindowDimensions } from '@hooks';
+import FloatingCards from '../components/FloatingCards/FloatingCards';
 
 type HomeProps = {};
 
 const Home: NextPage<HomeProps> = ({}) => {
-    const { scrollY } = useViewportScroll();
-    const [photoRef, { height, bottom }] = useMeasure();
-    const y = useTransform(scrollY, [0, height - 200], [100, height + 25]);
-    const color = useTransform(y, [height, height], ['#fff', '#000']);
+    const { scrollY, scrollYProgress } = useViewportScroll();
+    const windowDimensions = useWindowDimensions();
+    const [titleRef, { top: titleTop }] = useMeasure();
 
-    const MotionImageLoader = motion(ImageLoader);
+    const y = useTransform(scrollY, [0, 500], [-500, 0]);
 
     const inViewOpts = {
         rootMargin: '-10%',
     };
-
-    const { ref: whoAmIInViewRef, inView: whoAmIInView } =
-        useInView(inViewOpts);
-    const { ref: projectsRef, inView: projectsInView } = useInView(inViewOpts);
 
     const cont = {
         in: {
@@ -48,85 +47,32 @@ const Home: NextPage<HomeProps> = ({}) => {
     };
 
     return (
-        <div
-            className={`relative flex  
-        flex-col items-center`}
-        >
+        <div className={`relative min-h-[500vh] w-full p-4`}>
             <ImageLoader
                 src={acrylic}
-                alt={'main'}
-                ref={photoRef}
-                className={`relative aspect-square w-full overflow-hidden rounded-[50%_25%] `}
-                imgClassName={`h-full w-full object-cover rotate-90 `}
-                // style={{
-                //     boxShadow: '0 0 200px 100px hsla(0, 93%, 25%, .25)',
-                // }}
+                className={`h-[500px] overflow-hidden dark:invert`}
+                imgClassName={`object-cover object-[center_top] w-full h-full`}
             />
-            <motion.a
-                className="absolute left-0 cursor-pointer bg-zinc-900 p-3 text-7xl font-black text-zinc-100 dark:bg-zinc-100 dark:text-zinc-900"
+            <div id={`who-am-i`} />
+            <motion.h1
+                ref={titleRef}
+                className={`relative font-brand text-6xl font-bold text-neutral-100 mix-blend-difference`}
                 style={{ y }}
-                href={'#who-am-i'}
             >
-                WHO I ILLZ?
-            </motion.a>
-
-            {/*Who Am I */}
-            <motion.section
-                id={'who-am-i'}
-                variants={cont}
-                initial="out"
-                animate={whoAmIInView ? 'in' : 'out'}
-                exit="out"
-                className="flex w-auto flex-col pt-[150px]"
-                ref={whoAmIInViewRef}
-            >
-                <ImageLoader
-                    src={me}
-                    alt={'Me'}
-                    className={
-                        'relative aspect-square w-1/3 overflow-hidden rounded-[25%_10%_25%] object-top '
-                    }
-                    priority={true}
-                    imgClassName={`object-cover`}
-                />
-                <motion.p className={`self-start pt-5`} variants={fadeIn}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit
-                    esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                    occaecat cupidatat non proident, sunt in culpa qui officia
-                    deserunt mollit anim id est laborum.Ut enim ad minim veniam,
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-                    ea commodo consequat. Duis aute irure dolor in reprehenderit
-                    in voluptate velit esse cillum dolore eu fugiat nulla
-                    pariatur. Excepteur sint occaecat cupidatat non proident,
-                    sunt in culpa qui officia deserunt mollit anim id est
-                    laborum.
-                </motion.p>
-            </motion.section>
-
-            {/* Projects */}
-            <motion.section
-                variants={cont}
-                initial="out"
-                animate={projectsInView ? 'in' : 'out'}
-                exit="out"
-                id="projects"
-                className={`flex w-full flex-col pt-5`}
-                ref={projectsRef}
-            >
-                <motion.h1
-                    className={`pb-5 text-6xl font-black `}
-                    variants={fadeIn}
-                >
-                    Projects
-                </motion.h1>
-                <motion.div variants={fadeIn}>
-                    {/*<PhotoGrid photos={randomPhotos} />*/}
-                </motion.div>
-            </motion.section>
+                <a href={`#who-am-i`}>WHO I ILLZ?</a>
+            </motion.h1>
+            <section>
+                <h1>BLAHBLAH</h1>
+                <p>
+                    Hey increasing cargo announcements judgment older responses,
+                    stress plays notes buck ticket coaching upper, through mic
+                    siemens neighborhood.
+                </p>
+            </section>
+            <section id={`projects`}>
+                <FloatingCards />
+            </section>
+            {/*<ImageLoader src={acrylic} className={`w-full rotate-180 `} />*/}
         </div>
     );
 };

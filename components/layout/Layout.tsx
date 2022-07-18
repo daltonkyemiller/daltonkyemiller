@@ -16,22 +16,18 @@ const Layout: React.FC<Props> = (props: Props) => {
                 <title>Dalton Kye Miller</title>
                 <link rel="manifest" href="/site.webmanifest" />
             </Head>
-            {/*<Nav*/}
-            {/*    links={[*/}
-            {/*        {*/}
-            {/*            name: 'Home',*/}
-            {/*            href: '/',*/}
-            {/*        },*/}
-            {/*        {*/}
-            {/*            name: 'About',*/}
-            {/*            href: '/#who-am-i',*/}
-            {/*        },*/}
-            {/*        {*/}
-            {/*            name: 'Projects',*/}
-            {/*            href: '/#projects',*/}
-            {/*        },*/}
-            {/*    ]}*/}
-            {/*/>*/}
+            <Nav
+                links={[
+                    {
+                        name: 'About',
+                        href: '/#who-am-i',
+                    },
+                    {
+                        name: 'Projects',
+                        href: '/#projects',
+                    },
+                ]}
+            />
             <ThemeProvider>
                 {/*<div id="grain" />*/}
                 <ThemeSwitcher />
@@ -40,7 +36,7 @@ const Layout: React.FC<Props> = (props: Props) => {
                     initial={false}
                     onExitComplete={() => window.scrollTo(0, 0)}
                 >
-                    <motion.main className={`relative basis-full`}>
+                    <motion.main className={`w-full`}>
                         {props.children}
                     </motion.main>
                 </AnimatePresence>

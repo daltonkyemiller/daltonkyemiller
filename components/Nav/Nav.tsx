@@ -1,11 +1,19 @@
 import { motion } from 'framer-motion';
-import React, { MouseEventHandler, useEffect, useRef, useState } from 'react';
+import React, {
+    HTMLAttributes,
+    MouseEventHandler,
+    PropsWithChildren,
+    useEffect,
+    useRef,
+    useState,
+} from 'react';
 import { useWindowDimensions } from '@hooks';
 import { screens } from '@theme';
 import Link from 'next/link';
 
+type Link = { name: string; href: string };
 type NavProps = {
-    links: Array<{ name: string; href: string }>;
+    links: Array<Link>;
 };
 
 const Nav: React.FC<NavProps> = ({ links }: NavProps) => {
@@ -49,73 +57,40 @@ const Nav: React.FC<NavProps> = ({ links }: NavProps) => {
     };
 
     return (
-        <nav
-            className={`absolute z-10 h-screen basis-1/6 md:relative 
-            ${showNav ? 'bg-slate-50' : 'bg-transparent'} transition-all`}
-        >
-            <HamButton open={showNav} onClick={() => setShowNav(!showNav)} />
-            <motion.div
-                className={`hidden h-full w-full flex-col items-center justify-center md:flex `}
-                variants={content}
-                animate={
-                    showNav || screenWidth > screens['md'] ? 'show' : 'hide'
-                }
-                initial={`hide`}
+        <nav className={`z-20 flex w-full px-5 py-1 `}>
+            <ul
+                className={`flex h-full w-full items-center border-b-4 border-neutral-900 dark:border-neutral-100`}
             >
-                <motion.h1
-                    className="font-brand text-5xl font-semibold"
-                    variants={items}
-                >
-                    DKM
-                </motion.h1>
-                <motion.div
-                    className="my-2 w-1/3 border-t border-slate-400"
-                    variants={items}
+                <NavLink
+                    link={{ name: 'DKM', href: '/' }}
+                    className={`font-brand text-5xl font-bold`}
                 />
-                <motion.ul
-                    className="flex flex-col gap-4 font-sans text-xl"
-                    variants={items}
-                >
-                    {links.map((link) => (
-                        <li key={link.name} onClick={() => setShowNav(false)}>
-                            <Link href={link.href}>{link.name}</Link>
-                        </li>
-                    ))}
-                </motion.ul>
-            </motion.div>
+                {links.map((link, idx) => (
+                    <NavLink link={link} key={idx} />
+                ))}
+            </ul>
         </nav>
     );
 };
 
-type HamButtonProps = {
-    open: boolean;
-    onClick: MouseEventHandler;
-};
-const HamButton: React.FC<HamButtonProps> = ({ open, onClick }) => {
-    return (
-        <div
-            className={`${
-                open ? 'relative' : 'fixed'
-            } z-10 z-10 flex w-screen flex-col gap-1 p-1 md:hidden`}
-            onClick={onClick}
-        >
-            <div
-                className={`right-0 ml-auto h-2 w-10 bg-slate-900 transition-all ${
-                    open ? 'translate-y-3 rotate-45' : ''
-                }`}
-            />
-            <div
-                className={`ml-auto h-2 w-10 bg-slate-900 transition-all ${
-                    open ? 'opacity-0' : ''
-                }`}
-            />
-            <div
-                className={`ml-auto h-2 w-10 bg-slate-900 transition-all ${
-                    open ? '-translate-y-3 -rotate-45' : ''
-                }`}
-            />
-        </div>
-    );
+type NavLinkProps = HTMLAttributes<HTMLLIElement> & {
+    link: Link;
 };
 
+const NavLink = ({
+    link,
+    className,
+    children,
+}: PropsWithChildren<NavLinkProps>) => {
+    return (
+        <li
+            className={`flex h-full w-full flex-grow cursor-pointer items-center border-[2px] 
+            border-neutral-900 p-2 transition-colors dark:border-neutral-100 ${className}`}
+        >
+            <Link href={link.href}>
+                <a className={`flex h-full w-full items-center`}>{link.name}</a>
+            </Link>
+        </li>
+    );
+};
 export default Nav;

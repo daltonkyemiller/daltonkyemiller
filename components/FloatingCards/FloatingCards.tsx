@@ -1,111 +1,131 @@
 import { motion, useMotionValue, useSpring } from 'framer-motion';
-import React, { PropsWithChildren, useEffect, useState } from 'react';
-import { randomBetween, range } from '../../utils/helpers';
-import { useMousePosition, useWindowDimensions } from '@hooks';
-import useMeasure from 'react-use-measure';
-import ImageLoader from '../ImageLoader/ImageLoader';
+import React, { useEffect, useRef, useState } from 'react';
 import { projects } from '../../utils/mock/data';
-import Link from 'next/link';
 import { Project } from '../../utils/types';
+import { useMousePosition } from '@hooks';
+import useMeasure from 'react-use-measure';
+import _ from 'lodash';
+import { randomBetween, range } from '../../utils/helpers';
+import { mergeRefs } from 'react-merge-refs';
+import Link from 'next/link';
+
+type FloatingCardProps = {
+    idx: number;
+    relMousePos: { x: number; y: number };
+    project: Project;
+};
+const FloatingCard = ({ idx, relMousePos, project }: FloatingCardProps) => {
+    const letter = ['a', 'b', 'c', 'd', 'e'][idx];
+    const cardRef = useRef<HTMLDivElement | null>(null);
+    const [isOpen, setIsOpen] = useState(false);
+
+    const [random, setRandom] = useState({
+        x: randomBetween(-1, 1),
+        y: randomBetween(-1, 1),
+    });
+
+    const x = useSpring(0, { stiffness: 300, damping: 10, bounce: 0.5 });
+    const y = useSpring(0, { stiffness: 300, damping: 10, bounce: 0.5 });
+
+    useEffect(() => {
+        const curr = cardRef.current!;
+        const offParent = curr.offsetParent as HTMLElement;
+
+        const xMove = relMousePos.x * 50 * random.x;
+        const yMove = relMousePos.y * 50 * random.y;
+
+        const xMin = curr.offsetLeft;
+        const xMax = offParent.offsetWidth - xMin - curr.offsetWidth;
+
+        const yMin = curr.offsetTop;
+        const yMax = offParent.offsetHeight - yMin - curr.offsetHeight;
+        x.set(_.clamp(xMove, -xMin, xMax));
+        y.set(_.clamp(yMove, -yMin, yMax));
+    }, [random.x, random.y, relMousePos.x, relMousePos.y, x, y]);
+
+    const variants = {
+        open: {
+            scaleY: 1,
+            opacity: 1,
+        },
+        close: {
+            scaleY: 0,
+            opacity: 0,
+        },
+    };
+
+    return (
+        <Link href={`project/${project.path}`}>
+            <motion.div
+                className={`relative cursor-pointer`}
+                layoutId={project.path}
+                ref={cardRef}
+                style={{ gridArea: letter, x, y }}
+            >
+                <div
+                    className={`${
+                        isOpen ? 'bg-neutral-300' : 'bg-transparent'
+                    } transition-color rounded-lg p-3`}
+                >
+                    <h1
+                        className={`inline-block animate-pulse text-3xl font-bold`}
+                        style={{ animationDelay: `${idx * 0.25}s` }}
+                        onMouseOver={() => setIsOpen(true)}
+                        onMouseLeave={() => setIsOpen(false)}
+                    >
+                        {project.name}
+                    </h1>
+                    <motion.p
+                        variants={variants}
+                        animate={isOpen ? 'open' : 'close'}
+                    >
+                        {project.description}
+                    </motion.p>
+                </div>
+            </motion.div>
+        </Link>
+    );
+};
 
 type FloatingCardsProps = {};
 
 const FloatingCards = ({}: FloatingCardsProps) => {
-    const mousePos = useMousePosition();
-    const windowDimensions = useWindowDimensions();
-    return (
-        <div
-            className={`grid aspect-square max-h-[90vmin] grid-cols-3 gap-10`}
-            style={{
-                gridTemplateAreas: `
-                "a . b"
-                ". c ."
-                "d . e"
-             `,
-            }}
-        >
-            {projects.map((_, i) => (
-                <FloatingCard
-                    key={i}
-                    idx={i}
-                    mousePos={mousePos}
-                    windowDimensions={windowDimensions}
-                    project={projects[i]}
-                />
-            ))}
-        </div>
-    );
-};
-
-type FloatingCardProps = {
-    idx: number;
-    mousePos: { x: number; y: number };
-    windowDimensions: { width: number; height: number };
-    project: Project;
-};
-
-const FloatingCard = ({
-    idx,
-    mousePos,
-    windowDimensions,
-    project,
-    children,
-}: PropsWithChildren<FloatingCardProps>) => {
-    const [cardRef, { top, left }] = useMeasure();
-    const off = 25;
-    const letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
-    const [randomOffset, setRandomOffset] = useState({
-        x: randomBetween(-off, off),
-        y: randomBetween(-off, off),
-    });
-    const x = useSpring(0, { stiffness: 300, damping: 30 });
-    const y = useSpring(0, { stiffness: 300, damping: 30 });
-
-    useEffect(() => {
-        console.log(mousePos.x - left);
-        // console.log(mousePos.x - left);
-        x.set(
-            range(mousePos.x - left, 0, windowDimensions.width, 0, off) *
-                randomOffset.x
-        );
-        y.set(
-            range(mousePos.y - top, 0, windowDimensions.height, 0, off) *
-                randomOffset.y
-        );
-    }, [
-        left,
-        mousePos.x,
-        mousePos.y,
-        randomOffset.x,
-        randomOffset.y,
-        top,
-        windowDimensions.height,
-        windowDimensions.width,
-        x,
-        y,
-    ]);
+    const [ref, bounds] = useMeasure();
+    const [relPos, setRelPos] = useState({ x: 0, y: 0 });
+    const cursorRef = useRef<HTMLDivElement | null>(null);
 
     return (
-        <div
-            className={`animate-pulse`}
-            style={{
-                animationDelay: `${idx * 0.5}s`,
-                gridArea: `${letters[idx]}`,
-            }}
-        >
-            <Link href={`/project/${project.path}`}>
-                <motion.div
-                    layoutId={project.path}
-                    ref={cardRef}
-                    className={`flex cursor-pointer flex-col rounded-xl p-5`}
-                    style={{ x, y }}
-                >
-                    <h1 className={`whitespace-nowrap text-3xl font-bold`}>
-                        {project.name}
-                    </h1>
-                </motion.div>
-            </Link>
-        </div>
+        <>
+            <div
+                onMouseMove={(e) => {
+                    const bounding = e.currentTarget.getBoundingClientRect();
+                    const relX = e.clientX - bounding.left;
+                    const relY = e.clientY - bounding.top;
+                    setRelPos({
+                        x: range(relX / bounding.width, 0, 1, -1, 1),
+                        y: range(relY / bounding.height, 0, 1, -1, 1),
+                    });
+                }}
+                ref={ref}
+                className={`relative grid h-[500px] w-full place-items-center overflow-hidden  mix-blend-multiply`}
+                style={{
+                    gridTemplateAreas: `
+        "a . b"
+        ". c ."
+        "d . e"
+        `,
+                }}
+            >
+                {projects.map((project, i) => (
+                    <FloatingCard
+                        project={project}
+                        relMousePos={relPos}
+                        key={project.path}
+                        idx={i}
+                    />
+                ))}
+            </div>
+        </>
     );
 };
 

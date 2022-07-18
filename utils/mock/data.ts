@@ -55,7 +55,7 @@ export const projects: Project[] = [
         cover: randomFromArray(randomPhotos),
     },
     {
-        name: 'Coffee Project',
+        name: 'Coffee Project ☕',
         description:
             'Keyboard habitat cruises promoting greetings sponsor crazy, carroll operated phys enclosure released final plug, devoted cables gambling viewpicture develops louisville cooked, bang.',
         path: 'coffee-project',
@@ -67,6 +67,6 @@ export const projects: Project[] = [
         description: 'Fears ethernet camera reading game.',
         path: 'vanilla-movies-app',
         images: [randomFromArray(randomPhotos), randomFromArray(randomPhotos)],
-        cover: randomFromArray(randomPhotos),
+        cover: 'https://github.com/daltonkyemiller/movies-app/blob/main/readme/img/movies_app_demo.gif?raw=true',
     },
 ];

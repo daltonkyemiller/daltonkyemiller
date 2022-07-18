@@ -7,7 +7,7 @@ const nextConfig = async () => ({
         },
     },
     images: {
-        domains: ['picsum.photos', 'raw.githubusercontent.com'],
+        domains: ['picsum.photos', 'raw.githubusercontent.com', 'github.com'],
     },
 });
 
