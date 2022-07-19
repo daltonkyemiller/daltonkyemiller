@@ -4,4 +4,5 @@ export interface Project {
     path: string;
     images: string[];
     cover: string;
+    tech: string[];
 }

@@ -35,6 +35,14 @@ export const projects: Project[] = [
         description:
             'Counters marc lightbox trends moore amanda single, belarus philosophy larger authorized kansas scratch profiles, goat jobs tradition hiring exclusion must critical, blonde join six. ',
         path: 'capstone',
+        tech: [
+            'React',
+            'TypeScript',
+            'NodeJS',
+            'Express',
+            'MongoDB',
+            'Mongoose',
+        ],
         images: [randomFromArray(randomPhotos), randomFromArray(randomPhotos)],
         cover: randomFromArray(randomPhotos),
     },
@@ -42,6 +50,14 @@ export const projects: Project[] = [
         name: 'React Movies App',
         description:
             'While trusts open photograph treated cultural marked, protein toolbox bargains striking. ',
+        tech: [
+            'React',
+            'TypeScript',
+            'NodeJS',
+            'Express',
+            'MongoDB',
+            'Mongoose',
+        ],
         path: 'react-movies-app',
         images: [randomFromArray(randomPhotos), randomFromArray(randomPhotos)],
         cover: randomFromArray(randomPhotos),
@@ -51,6 +67,14 @@ export const projects: Project[] = [
         description:
             'Gossip liquid baseball if seekers cannon hope, exports motorcycles memorabilia triple activated volt crops, doctors cellular. ',
         path: 'weather-map-app',
+        tech: [
+            'React',
+            'TypeScript',
+            'NodeJS',
+            'Express',
+            'MongoDB',
+            'Mongoose',
+        ],
         images: [randomFromArray(randomPhotos), randomFromArray(randomPhotos)],
         cover: randomFromArray(randomPhotos),
     },
@@ -58,13 +82,30 @@ export const projects: Project[] = [
         name: 'Coffee Project ☕',
         description:
             'Keyboard habitat cruises promoting greetings sponsor crazy, carroll operated phys enclosure released final plug, devoted cables gambling viewpicture develops louisville cooked, bang.',
+        tech: [
+            'React',
+            'TypeScript',
+            'NodeJS',
+            'Express',
+            'MongoDB',
+            'Mongoose',
+        ],
         path: 'coffee-project',
         images: [randomFromArray(randomPhotos), randomFromArray(randomPhotos)],
         cover: randomFromArray(randomPhotos),
     },
     {
         name: 'Vanilla Movies App',
-        description: 'Fears ethernet camera reading game.',
+        description:
+            'Fears ethernet camera reading game. Gun appearing dis centers shame played reseller, prints centuries organizational funds ranked browse ongoing, length file url everywhere replace. ',
+        tech: [
+            'React',
+            'TypeScript',
+            'NodeJS',
+            'Express',
+            'MongoDB',
+            'Mongoose',
+        ],
         path: 'vanilla-movies-app',
         images: [randomFromArray(randomPhotos), randomFromArray(randomPhotos)],
         cover: 'https://github.com/daltonkyemiller/movies-app/blob/main/readme/img/movies_app_demo.gif?raw=true',

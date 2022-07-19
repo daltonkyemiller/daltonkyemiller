@@ -33,7 +33,6 @@ const Layout: React.FC<Props> = (props: Props) => {
                 <ThemeSwitcher />
                 <AnimatePresence
                     exitBeforeEnter
-                    initial={false}
                     onExitComplete={() => window.scrollTo(0, 0)}
                 >
                     <motion.main className={`w-full`}>

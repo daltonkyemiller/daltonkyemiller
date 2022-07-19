@@ -1,25 +1,30 @@
 import type { GetStaticProps, NextPage } from 'next';
 import acrylic from '/public/img/marble.svg';
-import me from '/public/img/me.jpeg';
-import { motion, useTransform, useViewportScroll } from 'framer-motion';
-import ImageLoader from '../components/ImageLoader/ImageLoader';
+import {
+    motion,
+    useInView,
+    useTransform,
+    useViewportScroll,
+} from 'framer-motion';
 import useMeasure from 'react-use-measure';
-import { PhotoGrid } from '@components';
-import { randomPhotos } from '../utils/mock/data';
-import { useInView } from 'react-intersection-observer';
-import { useContext } from 'react';
-import { ThemeContext } from '../utils/theme/themeContext';
 import { useWindowDimensions } from '@hooks';
 import FloatingCards from '../components/FloatingCards/FloatingCards';
+import Image from 'next/future/image';
+import { useContext, useRef } from 'react';
+import { ThemeContext } from '../utils/theme/themeContext';
+import TypeIn from '../components/TypeIn/TypeIn';
+import { projects } from '../utils/mock/data';
 
 type HomeProps = {};
 
 const Home: NextPage<HomeProps> = ({}) => {
     const { scrollY, scrollYProgress } = useViewportScroll();
-    const windowDimensions = useWindowDimensions();
     const [titleRef, { top: titleTop }] = useMeasure();
+    const theme = useContext(ThemeContext);
 
     const y = useTransform(scrollY, [0, 500], [-500, 0]);
+
+    const [secondTitleRef, { width: secondTitleWidth }] = useMeasure();
 
     const inViewOpts = {
         rootMargin: '-10%',
@@ -47,20 +52,27 @@ const Home: NextPage<HomeProps> = ({}) => {
     };
 
     return (
-        <div className={`relative min-h-[500vh] w-full p-4`}>
-            <ImageLoader
-                src={acrylic}
-                className={`h-[500px] overflow-hidden dark:invert`}
-                imgClassName={`object-cover object-[center_top] w-full h-full`}
-            />
-            <div id={`who-am-i`} />
-            <motion.h1
-                ref={titleRef}
-                className={`relative font-brand text-6xl font-bold text-neutral-100 mix-blend-difference`}
-                style={{ y }}
-            >
-                <a href={`#who-am-i`}>WHO I ILLZ?</a>
-            </motion.h1>
+        <div className={`relative w-full p-4`}>
+            <div className={`relative h-[500px] w-full`}>
+                <Image
+                    src={acrylic}
+                    className={`h-full w-full object-cover  ${
+                        theme.theme !== 'dark' ? 'invert' : ''
+                    }`}
+                    alt={`acrylic`}
+                />
+                <motion.div
+                    className={`absolute top-0 z-10 whitespace-nowrap text-[6vw] font-bold text-neutral-100 mix-blend-difference`}
+                >
+                    <TypeIn
+                        text="</DaltonKyeMiller>"
+                        animOut={{ opacity: 0 }}
+                        animIn={{ opacity: 1 }}
+                        delay={0.1}
+                        duration={0}
+                    />
+                </motion.div>
+            </div>
             <section>
                 <h1>BLAHBLAH</h1>
                 <p>
@@ -70,7 +82,10 @@ const Home: NextPage<HomeProps> = ({}) => {
                 </p>
             </section>
             <section id={`projects`}>
-                <FloatingCards />
+                <h1 className="pb-3 font-brand text-6xl font-bold">
+                    Project Zone
+                </h1>
+                {/*<FloatingCards />*/}
             </section>
             {/*<ImageLoader src={acrylic} className={`w-full rotate-180 `} />*/}
         </div>

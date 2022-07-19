@@ -25,7 +25,9 @@ export const ThemeProvider = ({
     const [theme, setTheme] = useState<Theme['theme']>(null);
     let userSetTheme = useRef<string | null>();
     useEffect(() => {
-        userSetTheme.current = localStorage.getItem('theme');
+        const userTheme = localStorage.getItem('theme');
+        userSetTheme.current = userTheme;
+        if (userTheme) setTheme(userTheme);
     }, []);
 
     const toggleTheme = () => {

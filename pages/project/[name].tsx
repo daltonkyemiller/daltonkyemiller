@@ -25,7 +25,7 @@ const Project: NextPage<NameProps> = ({}) => {
         },
     };
     return (
-        <div className={'min-h-screen min-w-full'}>
+        <section className={'min-h-screen min-w-full'}>
             <motion.div
                 variants={fade}
                 initial={{ ...fade.out, height: 0 }}
@@ -42,11 +42,30 @@ const Project: NextPage<NameProps> = ({}) => {
             </motion.div>
             <motion.div layoutId={typeof name === 'string' ? name : name![0]}>
                 <h1 className={`p-5 text-6xl font-bold`}>{project?.name}</h1>
-                <motion.p className={`p-5 text-xl`}>
-                    {project?.description}
-                </motion.p>
+                <div className={`flex gap-5 p-5 `}>
+                    <div className={`flex basis-1/3 flex-col`}>
+                        <h2 className={`text-xl font-bold`}>description</h2>
+                        <motion.p className={`text-xl`}>
+                            - <br />
+                            {project?.description}
+                        </motion.p>
+                    </div>
+                    <div className={`flex basis-1/3 flex-col`}>
+                        <h2 className={`text-xl font-bold`}>tech</h2>
+                        <motion.p className={`text-xl`}>
+                            - <br />
+                            {project?.tech.join(', ')}
+                        </motion.p>
+                    </div>
+                    <div className={`flex basis-1/3 flex-col`}>
+                        <h2 className={`text-xl font-bold`}>year</h2>
+                        <motion.p className={`text-xl`}>
+                            - <br /> 2022
+                        </motion.p>
+                    </div>
+                </div>
             </motion.div>
-        </div>
+        </section>
     );
 };
 

@@ -1,13 +1,19 @@
-import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import React, { useEffect, useRef, useState } from 'react';
 import { projects } from '../../utils/mock/data';
 import { Project } from '../../utils/types';
 import { useMousePosition } from '@hooks';
 import useMeasure from 'react-use-measure';
 import _ from 'lodash';
-import { randomBetween, range } from '../../utils/helpers';
+import {
+    randomIntBetween,
+    randomFromArray,
+    range,
+    randomBetween,
+} from '../../utils/helpers';
 import { mergeRefs } from 'react-merge-refs';
 import Link from 'next/link';
+import ImageLoader from '../ImageLoader/ImageLoader';
 
 type FloatingCardProps = {
     idx: number;
@@ -18,10 +24,21 @@ const FloatingCard = ({ idx, relMousePos, project }: FloatingCardProps) => {
     const letter = ['a', 'b', 'c', 'd', 'e'][idx];
     const cardRef = useRef<HTMLDivElement | null>(null);
     const [isOpen, setIsOpen] = useState(false);
+    const [bgColor, setBgColor] = useState(
+        [
+            'bg-orange-300',
+            'bg-blue-300',
+            'bg-green-300',
+            'bg-purple-300',
+            'bg-red-300',
+        ][idx % 5]
+    );
+
+    const [pos, setPos] = useState({ x: 0, y: 0 });
 
     const [random, setRandom] = useState({
-        x: randomBetween(-1, 1),
-        y: randomBetween(-1, 1),
+        x: randomBetween(-2, 2),
+        y: randomBetween(-2, 2),
     });
 
     const x = useSpring(0, { stiffness: 300, damping: 10, bounce: 0.5 });
@@ -31,16 +48,19 @@ const FloatingCard = ({ idx, relMousePos, project }: FloatingCardProps) => {
         const curr = cardRef.current!;
         const offParent = curr.offsetParent as HTMLElement;
 
-        const xMove = relMousePos.x * 50 * random.x;
-        const yMove = relMousePos.y * 50 * random.y;
+        const xMove = relMousePos.x * 200 * random.x;
+        const yMove = relMousePos.y * 200 * random.y;
 
         const xMin = curr.offsetLeft;
         const xMax = offParent.offsetWidth - xMin - curr.offsetWidth;
 
         const yMin = curr.offsetTop;
         const yMax = offParent.offsetHeight - yMin - curr.offsetHeight;
-        x.set(_.clamp(xMove, -xMin, xMax));
-        y.set(_.clamp(yMove, -yMin, yMax));
+        const newX = _.clamp(xMove, -xMin, xMax);
+        const newY = _.clamp(yMove, -yMin, yMax);
+
+        x.set(newX);
+        y.set(newY);
     }, [random.x, random.y, relMousePos.x, relMousePos.y, x, y]);
 
     const variants = {
@@ -55,35 +75,27 @@ const FloatingCard = ({ idx, relMousePos, project }: FloatingCardProps) => {
     };
 
     return (
-        <Link href={`project/${project.path}`}>
-            <motion.div
-                className={`relative cursor-pointer`}
-                layoutId={project.path}
-                ref={cardRef}
-                style={{ gridArea: letter, x, y }}
-            >
-                <div
-                    className={`${
-                        isOpen ? 'bg-neutral-300' : 'bg-transparent'
-                    } transition-color rounded-lg p-3`}
+        <motion.div
+            className={`relative min-h-full cursor-pointer`}
+            layoutId={project.path}
+            ref={cardRef}
+            style={{ gridArea: letter, x, y }}
+        >
+            <Link href={`project/${project.path}`}>
+                <motion.div
+                    className={`rounded-xl p-4 transition-colors`}
+                    onMouseOver={() => setIsOpen(true)}
+                    onMouseOut={() => setIsOpen(false)}
                 >
                     <h1
-                        className={`inline-block animate-pulse text-3xl font-bold`}
+                        className={`inline-block animate-bounce text-3xl font-bold`}
                         style={{ animationDelay: `${idx * 0.25}s` }}
-                        onMouseOver={() => setIsOpen(true)}
-                        onMouseLeave={() => setIsOpen(false)}
                     >
                         {project.name}
                     </h1>
-                    <motion.p
-                        variants={variants}
-                        animate={isOpen ? 'open' : 'close'}
-                    >
-                        {project.description}
-                    </motion.p>
-                </div>
-            </motion.div>
-        </Link>
+                </motion.div>
+            </Link>
+        </motion.div>
     );
 };
 
@@ -107,7 +119,7 @@ const FloatingCards = ({}: FloatingCardsProps) => {
                     });
                 }}
                 ref={ref}
-                className={`relative grid h-[500px] w-full place-items-center overflow-hidden  mix-blend-multiply`}
+                className={`relative grid w-full place-items-center `}
                 style={{
                     gridTemplateAreas: `
         "a . b"

@@ -8,8 +8,11 @@ export const range = (
     return low2 + ((high2 - low2) * (value - low1)) / (high1 - low1);
 };
 
-export const randomBetween = (min: number, max: number) =>
-    Math.floor(Math.random() * (max - min + 1) + min);
+export const randomBetween = (min: number, max: number): number =>
+    Math.random() * (max - min + 1) + min;
+
+export const randomIntBetween = (min: number, max: number) =>
+    Math.floor(randomBetween(min, max));
 
 export const randomFromArray = (array: any[]) =>
-    array[randomBetween(0, array.length - 1)];
+    array[randomIntBetween(0, array.length - 1)];
