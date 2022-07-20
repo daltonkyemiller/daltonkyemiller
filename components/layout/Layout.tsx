@@ -14,11 +14,6 @@ const Layout: React.FC<Props> = (props: Props) => {
 
     return (
         <>
-            <Head>
-                <title>Dalton Kye Miller</title>
-                <link rel="manifest" href="/site.webmanifest" />
-            </Head>
-
             <Nav
                 links={[
                     {

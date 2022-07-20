@@ -72,7 +72,7 @@ const Home: NextPage<HomeProps> = ({}) => {
                     style={{ top: imgY }}
                 >
                     <Image
-                        src="/img/acryl.jpg"
+                        src="/img/acryl.webp"
                         width={3840}
                         height={2160}
                         priority

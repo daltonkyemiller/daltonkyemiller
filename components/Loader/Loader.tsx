@@ -22,7 +22,7 @@ const Loader = ({}: LoaderProps) => {
             initial="initial"
             animate="animate"
             exit="exit"
-            className={`absolute inset-0 z-[9999] flex h-screen w-screen items-center justify-center bg-neutral-100 dark:bg-neutral-900`}
+            className={`fixed inset-0 z-[9999] flex h-screen w-screen items-center justify-center bg-neutral-100 dark:bg-neutral-900`}
         >
             <motion.div
                 className={
