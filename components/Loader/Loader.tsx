@@ -25,16 +25,20 @@ const Loader = ({}: LoaderProps) => {
             className={`absolute inset-0 z-[9999] flex h-screen w-screen items-center justify-center bg-neutral-100 dark:bg-neutral-900`}
         >
             <motion.div
-                className={'absolute w-[.1rem] bg-neutral-900'}
+                className={
+                    'absolute w-[.1rem] bg-neutral-900 dark:bg-neutral-100'
+                }
                 initial={{ height: '0%' }}
                 animate={{ height: '100%' }}
-                transition={{ duration: 5 }}
+                transition={{ duration: 10 }}
             />
             <motion.div
-                className={'absolute h-[.1rem] bg-neutral-900'}
+                className={
+                    'absolute h-[.1rem] bg-neutral-900 dark:bg-neutral-100'
+                }
                 initial={{ width: '0%' }}
                 animate={{ width: '100%' }}
-                transition={{ duration: 5 }}
+                transition={{ duration: 10 }}
             />
             <div
                 className={`grid grid-cols-2 content-center gap-2 font-brand font-medium`}

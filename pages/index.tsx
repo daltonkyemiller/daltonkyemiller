@@ -1,6 +1,5 @@
 import type { GetStaticProps, NextPage } from 'next';
-import acrylic from '/public/img/acryl.jpg';
-import me from '/public/img/me.jpg';
+import acrylic from '../public/img/acryl.jpg';
 import {
     motion,
     useInView,
