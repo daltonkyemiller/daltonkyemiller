@@ -1,16 +1,13 @@
 import type { GetStaticProps, NextPage } from 'next';
-import acrylic from '../public/img/acryl.jpg';
 import {
     motion,
     useInView,
     useTransform,
     useViewportScroll,
 } from 'framer-motion';
-import useMeasure from 'react-use-measure';
 import Image from 'next/future/image';
 import { useContext, useRef } from 'react';
 import { ThemeContext } from '../utils/theme/themeContext';
-import TypeIn from '../components/TypeIn/TypeIn';
 import { projects } from '../utils/mock/data';
 import FloatingCards from '../components/FloatingCards/FloatingCards';
 
@@ -75,7 +72,10 @@ const Home: NextPage<HomeProps> = ({}) => {
                     style={{ top: imgY }}
                 >
                     <Image
-                        src={acrylic}
+                        src="/img/acryl.jpg"
+                        width={3840}
+                        height={2160}
+                        priority
                         className={`h-full w-full object-cover object-top ${
                             theme.theme === 'dark' ? 'invert' : ''
                         }`}

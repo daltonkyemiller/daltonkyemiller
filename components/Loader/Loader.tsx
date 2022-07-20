@@ -30,7 +30,7 @@ const Loader = ({}: LoaderProps) => {
                 }
                 initial={{ height: '0%' }}
                 animate={{ height: '100%' }}
-                transition={{ duration: 10 }}
+                transition={{ duration: 5 }}
             />
             <motion.div
                 className={
@@ -38,7 +38,7 @@ const Loader = ({}: LoaderProps) => {
                 }
                 initial={{ width: '0%' }}
                 animate={{ width: '100%' }}
-                transition={{ duration: 10 }}
+                transition={{ duration: 5 }}
             />
             <div
                 className={`grid grid-cols-2 content-center gap-2 font-brand font-medium`}
