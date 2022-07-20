@@ -1,15 +1,12 @@
 import type { NextPage } from 'next';
 import { VisGrid } from '@components';
 import FloatingCards from '../components/FloatingCards/FloatingCards';
+import Loader from '../components/Loader/Loader';
 
 type ComponentTestingProps = {};
 
 const ComponentTesting: NextPage<ComponentTestingProps> = ({}) => {
-    return (
-        <div className={`flex h-screen w-screen items-center justify-center`}>
-            <FloatingCards />
-        </div>
-    );
+    return <></>;
 };
 
 export default ComponentTesting;

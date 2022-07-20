@@ -30,22 +30,22 @@ export const randomPhotos = [
 ];
 
 export const projects: Project[] = [
-    {
-        name: 'Capstone',
-        description:
-            'Counters marc lightbox trends moore amanda single, belarus philosophy larger authorized kansas scratch profiles, goat jobs tradition hiring exclusion must critical, blonde join six. ',
-        path: 'capstone',
-        tech: [
-            'React',
-            'TypeScript',
-            'NodeJS',
-            'Express',
-            'MongoDB',
-            'Mongoose',
-        ],
-        images: [randomFromArray(randomPhotos), randomFromArray(randomPhotos)],
-        cover: randomFromArray(randomPhotos),
-    },
+    // {
+    //     name: 'Capstone',
+    //     description:
+    //         'Counters marc lightbox trends moore amanda single, belarus philosophy larger authorized kansas scratch profiles, goat jobs tradition hiring exclusion must critical, blonde join six. ',
+    //     path: 'capstone',
+    //     tech: [
+    //         'React',
+    //         'TypeScript',
+    //         'NodeJS',
+    //         'Express',
+    //         'MongoDB',
+    //         'Mongoose',
+    //     ],
+    //     images: [randomFromArray(randomPhotos), randomFromArray(randomPhotos)],
+    //     cover: randomFromArray(randomPhotos),
+    // },
     {
         name: 'React Movies App',
         description:
@@ -82,14 +82,7 @@ export const projects: Project[] = [
         name: 'Coffee Project ☕',
         description:
             'Keyboard habitat cruises promoting greetings sponsor crazy, carroll operated phys enclosure released final plug, devoted cables gambling viewpicture develops louisville cooked, bang.',
-        tech: [
-            'React',
-            'TypeScript',
-            'NodeJS',
-            'Express',
-            'MongoDB',
-            'Mongoose',
-        ],
+        tech: ['HTML', 'CSS', 'JavaScript', 'JQuery'],
         path: 'coffee-project',
         images: [randomFromArray(randomPhotos), randomFromArray(randomPhotos)],
         cover: randomFromArray(randomPhotos),
@@ -98,14 +91,7 @@ export const projects: Project[] = [
         name: 'Vanilla Movies App',
         description:
             'Fears ethernet camera reading game. Gun appearing dis centers shame played reseller, prints centuries organizational funds ranked browse ongoing, length file url everywhere replace. ',
-        tech: [
-            'React',
-            'TypeScript',
-            'NodeJS',
-            'Express',
-            'MongoDB',
-            'Mongoose',
-        ],
+        tech: ['HTML', 'JavaScript', 'CSS'],
         path: 'vanilla-movies-app',
         images: [randomFromArray(randomPhotos), randomFromArray(randomPhotos)],
         cover: 'https://github.com/daltonkyemiller/movies-app/blob/main/readme/img/movies_app_demo.gif?raw=true',

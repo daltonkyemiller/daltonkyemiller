@@ -119,12 +119,12 @@ const FloatingCards = ({}: FloatingCardsProps) => {
                     });
                 }}
                 ref={ref}
-                className={`relative grid w-full place-items-center `}
+                className={`relative grid min-h-[500px] w-full place-items-center`}
                 style={{
                     gridTemplateAreas: `
         "a . b"
-        ". c ."
-        "d . e"
+        ". . ."
+        "c . d"
         `,
                 }}
             >

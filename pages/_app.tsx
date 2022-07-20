@@ -12,7 +12,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     useEffect(() => {
         setTimeout(() => {
             setIsLoading(false);
-        }, 1000);
+        }, 3000);
     }, []);
     return (
         <ThemeProvider>
@@ -23,7 +23,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                     </motion.div>
                 ) : (
                     <Layout>
-                        <Component {...pageProps} />i
+                        <Component {...pageProps} />
                     </Layout>
                 )}
             </AnimatePresence>

@@ -17,41 +17,13 @@ type NavProps = {
 };
 
 const Nav: React.FC<NavProps> = ({ links }: NavProps) => {
-    const { width: screenWidth } = useWindowDimensions();
-    const [showNav, setShowNav] = useState<boolean>(false);
-
-    const content = {
-        show: {
-            display: 'flex',
-            opacity: 1,
-            transition: {
-                duration: 0.25,
-                staggerChildren: 0.25,
-            },
-        },
-        hide: {
-            opacity: 0,
-            transition: {
-                duration: 0.25,
-                staggerChildren: 0.25,
-            },
-        },
-    };
-    const items = {
-        hide: {
-            x: -25,
-            opacity: 0,
-            transition: { duration: 0.25 },
-        },
-        show: {
-            x: 0,
-            opacity: 1,
-            transition: { duration: 0.25 },
-        },
-    };
-
     return (
-        <nav className={`z-20 flex w-full px-5 py-3 `}>
+        <motion.nav
+            className={`z-20 flex w-full px-5 py-3 `}
+            initial={{ opacity: 0, y: 100 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: 'easeInOut' }}
+        >
             <ul
                 className={`flex h-full w-full items-center border-b-4 border-neutral-900 dark:border-neutral-100`}
             >
@@ -63,7 +35,7 @@ const Nav: React.FC<NavProps> = ({ links }: NavProps) => {
                     <NavLink link={link} key={idx} />
                 ))}
             </ul>
-        </nav>
+        </motion.nav>
     );
 };
 
@@ -76,13 +48,17 @@ const NavLink = ({
     className,
     children,
 }: PropsWithChildren<NavLinkProps>) => {
+    const [isActive, setIsActive] = useState(false);
+    const [relMousePos, setRelMousePos] = useState({ x: 0, y: 0 });
     return (
         <li
-            className={`flex h-full w-full flex-grow cursor-pointer items-center border-[2px] 
-            border-neutral-900 p-2 transition-colors dark:border-neutral-100 ${className}`}
+            className={`relative isolate flex h-full w-full flex-grow cursor-pointer select-none items-center overflow-hidden border-[2px] 
+            border-neutral-900 bg-neutral-100 p-2 transition-colors transition-all dark:border-neutral-100 dark:bg-neutral-900 ${className} `}
         >
             <Link href={link.href}>
-                <a className={`flex h-full w-full items-center`}>{link.name}</a>
+                <a className={`z-2 relative flex h-full w-full items-center`}>
+                    {link.name}
+                </a>
             </Link>
         </li>
     );

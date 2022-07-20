@@ -1,11 +1,9 @@
 import React, { ReactNode, useContext, useEffect, useState } from 'react';
 import { Nav } from '@components';
-import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Head from 'next/head';
 import ThemeSwitcher from '../ThemeSwitcher/ThemeSwitcher';
 import { ThemeContext, ThemeProvider } from '../../utils/theme/themeContext';
-import overlay from '../../public/img/overlay/vintage-paper-8.jpg';
-import Loader from '../Loader/Loader';
 
 type Props = {
     children: any;
@@ -34,8 +32,18 @@ const Layout: React.FC<Props> = (props: Props) => {
                 ]}
             />
             {/*<div id="grain" />*/}
+            <div
+                id="texture-overlay"
+                className={`contrast-50 ${
+                    theme.theme === 'dark'
+                        ? 'mix-blend-screen contrast-125 invert'
+                        : 'mix-blend-multiply contrast-125'
+                }`}
+            />
             <ThemeSwitcher />
-            <motion.main className={`w-full`}>{props.children}</motion.main>
+            <motion.main className={`w-full px-4`}>
+                {props.children}
+            </motion.main>
         </>
     );
 };

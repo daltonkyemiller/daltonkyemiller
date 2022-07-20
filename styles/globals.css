@@ -34,8 +34,9 @@
 	position: absolute;
 	inset: 0;
 	background-size: cover;
-	mix-blend-mode: screen;
-	background-image: url("/img/overlay/vintage-paper-8.jpg");
+	background-image: url("/img/overlay/overlay_1.jpg");
+	pointer-events: none;
+	touch-action: none;
 
 }
 
