@@ -1,5 +1,5 @@
 import type { GetStaticProps, NextPage } from 'next';
-import acrylic from '/public/img/marble.svg';
+import acrylic from '/public/img/acryl.jpg';
 import {
     motion,
     useInView,
@@ -7,8 +7,6 @@ import {
     useViewportScroll,
 } from 'framer-motion';
 import useMeasure from 'react-use-measure';
-import { useWindowDimensions } from '@hooks';
-import FloatingCards from '../components/FloatingCards/FloatingCards';
 import Image from 'next/future/image';
 import { useContext, useRef } from 'react';
 import { ThemeContext } from '../utils/theme/themeContext';
@@ -52,25 +50,26 @@ const Home: NextPage<HomeProps> = ({}) => {
     };
 
     return (
-        <div className={`relative w-full p-4`}>
-            <div className={`relative h-[500px] w-full`}>
+        <div className={`relative w-full px-4`}>
+            <div className={`relative h-[500px] w-full overflow-hidden`}>
                 <Image
                     src={acrylic}
-                    className={`h-full w-full object-cover  ${
+                    className={`h-full w-full object-cover object-top ${
                         theme.theme !== 'dark' ? 'invert' : ''
                     }`}
                     alt={`acrylic`}
                 />
                 <motion.div
-                    className={`absolute top-0 z-10 whitespace-nowrap text-[6vw] font-bold text-neutral-100 mix-blend-difference`}
+                    className={`absolute top-0 z-10 whitespace-nowrap text-[6vw] font-bold text-white mix-blend-difference`}
                 >
-                    <TypeIn
-                        text="</DaltonKyeMiller>"
-                        animOut={{ opacity: 0 }}
-                        animIn={{ opacity: 1 }}
-                        delay={0.1}
-                        duration={0}
-                    />
+                    {/*<TypeIn*/}
+                    {/*    text="</DaltonKyeMiller>"*/}
+                    {/*    animOut={{ opacity: 0, y: -100 }}*/}
+                    {/*    animIn={{ opacity: 1, y: 0 }}*/}
+                    {/*    easing={`easeInOut`}*/}
+                    {/*    delay={0.1}*/}
+                    {/*    duration={0.05}*/}
+                    {/*/>*/}
                 </motion.div>
             </div>
             <section>
@@ -85,9 +84,7 @@ const Home: NextPage<HomeProps> = ({}) => {
                 <h1 className="pb-3 font-brand text-6xl font-bold">
                     Project Zone
                 </h1>
-                {/*<FloatingCards />*/}
             </section>
-            {/*<ImageLoader src={acrylic} className={`w-full rotate-180 `} />*/}
         </div>
     );
 };

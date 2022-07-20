@@ -7,6 +7,7 @@ type TypeInProps = {
     delay?: number;
     animIn?: object;
     animOut?: object;
+    easing?: string | number[];
     cursor?: boolean;
     onComplete?: () => void;
 };
@@ -17,6 +18,7 @@ const TypeIn = ({
     animIn,
     animOut,
     duration,
+    easing,
     cursor,
     onComplete,
 }: TypeInProps) => {
@@ -43,6 +45,7 @@ const TypeIn = ({
                     transition={{
                         duration: duration ?? 0.1,
                         delay: index * (delay ?? 0.1),
+                        ease: easing ?? null,
                     }}
                     {...(index === text.length - 1 && {
                         onAnimationComplete: () => {

@@ -30,9 +30,18 @@
 	90% {transform: translate(-1%,7%);}
 }
 
+#texture-overlay{
+	position: absolute;
+	inset: 0;
+	background-size: cover;
+	mix-blend-mode: screen;
+	background-image: url("/img/overlay/vintage-paper-8.jpg");
+
+}
+
 @layer base {
 	body, html {
-		@apply bg-neutral-100 scroll-smooth dark:bg-neutral-900 dark:text-neutral-100;
+		@apply relative bg-neutral-100 scroll-smooth dark:bg-neutral-900 dark:text-neutral-100;
 	}
 	#__next{
 		@apply overflow-x-hidden flex flex-wrap w-screen;

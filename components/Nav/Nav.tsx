@@ -20,12 +20,6 @@ const Nav: React.FC<NavProps> = ({ links }: NavProps) => {
     const { width: screenWidth } = useWindowDimensions();
     const [showNav, setShowNav] = useState<boolean>(false);
 
-    useEffect(() => {
-        // @ts-ignore
-        document.querySelector('main').style.display =
-            showNav && screenWidth < screens['md'] ? 'none' : '';
-    }, [screenWidth, showNav]);
-
     const content = {
         show: {
             display: 'flex',
@@ -57,7 +51,7 @@ const Nav: React.FC<NavProps> = ({ links }: NavProps) => {
     };
 
     return (
-        <nav className={`z-20 flex w-full px-5 py-1 `}>
+        <nav className={`z-20 flex w-full px-5 py-3 `}>
             <ul
                 className={`flex h-full w-full items-center border-b-4 border-neutral-900 dark:border-neutral-100`}
             >
