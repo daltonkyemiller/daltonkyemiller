@@ -20,17 +20,17 @@ function MyApp({ Component, pageProps }: AppProps) {
             <Head>
                 <title>Dalton Kye Miller</title>
                 <link rel="manifest" href="/site.webmanifest" />
-                <link rel="preload" as="image" href="/img/acryl.jpg" />
             </Head>
             <AnimatePresence>
-                {isLoading && (
+                {isLoading ? (
                     <motion.div key="loader">
                         <Loader />
                     </motion.div>
+                ) : (
+                    <Layout>
+                        <Component {...pageProps} />
+                    </Layout>
                 )}
-                <Layout>
-                    <Component {...pageProps} />
-                </Layout>
             </AnimatePresence>
         </ThemeProvider>
     );
