@@ -1,9 +1,8 @@
-import React, { ReactNode, useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { Nav } from '@components';
 import { motion } from 'framer-motion';
-import Head from 'next/head';
 import ThemeSwitcher from '../ThemeSwitcher/ThemeSwitcher';
-import { ThemeContext, ThemeProvider } from '../../utils/theme/themeContext';
+import { ThemeContext } from '../../utils/theme/themeContext';
 
 type Props = {
     children: any;

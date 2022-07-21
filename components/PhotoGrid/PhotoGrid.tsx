@@ -62,7 +62,7 @@ export const Photo: React.FC<PhotoProps> = ({ photo, idx }) => {
     return (
         <motion.div
             ref={ref}
-            className={`w-100 relative h-[300px] overflow-hidden rounded-lg`}
+            className={`w-100 relative h-[300px] overflow-hidden`}
         >
             <motion.div
                 className={`h-full w-full`}

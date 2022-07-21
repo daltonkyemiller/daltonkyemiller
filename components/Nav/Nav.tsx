@@ -1,14 +1,5 @@
 import { motion } from 'framer-motion';
-import React, {
-    HTMLAttributes,
-    MouseEventHandler,
-    PropsWithChildren,
-    useEffect,
-    useRef,
-    useState,
-} from 'react';
-import { useWindowDimensions } from '@hooks';
-import { screens } from '@theme';
+import React, { HTMLAttributes, PropsWithChildren, useState } from 'react';
 import Link from 'next/link';
 
 type Link = { name: string; href: string };
@@ -16,26 +7,55 @@ type NavProps = {
     links: Array<Link>;
 };
 
+const containerVariants = {
+    initial: {
+        opacity: 0,
+    },
+    animate: {
+        opacity: 1,
+        transition: {
+            duration: 1,
+            staggerChildren: 0.25,
+        },
+    },
+};
+
+const itemVariants = {
+    initial: {
+        y: -100,
+    },
+    animate: {
+        y: 0,
+        transition: {
+            ease: 'easeInOut',
+        },
+    },
+};
+
 const Nav: React.FC<NavProps> = ({ links }: NavProps) => {
+    const [navAnimated, setNavAnimated] = useState(false);
+
     return (
-        <motion.nav
-            className={`z-20 flex w-full px-5 py-3 `}
-            initial={{ opacity: 0, y: 100 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: 'easeInOut' }}
-        >
-            <ul
-                className={`flex h-full w-full items-center border-b-4 border-neutral-900 dark:border-neutral-100`}
+        <nav className={`z-20 flex w-full px-5 py-3`}>
+            <motion.ul
+                className={`relative flex h-full w-full items-center border-neutral-900 after:absolute after:top-full after:transition-all 
+                ${navAnimated ? 'after:scale-y-100' : 'after:scale-y-0'}
+                after:h-2 after:w-full after:origin-top after:bg-neutral-900 after:content-[""] 
+                dark:border-neutral-100 dark:after:bg-neutral-100`}
+                variants={containerVariants}
+                initial="initial"
+                animate="animate"
+                onAnimationComplete={() => setNavAnimated(true)}
             >
                 <NavLink
                     link={{ name: 'DKM', href: '/' }}
-                    className={`font-brand text-5xl font-bold`}
+                    className={`font-brand text-3xl font-bold md:text-5xl`}
                 />
                 {links.map((link, idx) => (
                     <NavLink link={link} key={idx} />
                 ))}
-            </ul>
-        </motion.nav>
+            </motion.ul>
+        </nav>
     );
 };
 
@@ -48,19 +68,18 @@ const NavLink = ({
     className,
     children,
 }: PropsWithChildren<NavLinkProps>) => {
-    const [isActive, setIsActive] = useState(false);
-    const [relMousePos, setRelMousePos] = useState({ x: 0, y: 0 });
     return (
-        <li
+        <motion.li
             className={`relative isolate flex h-full w-full flex-grow cursor-pointer select-none items-center overflow-hidden border-[2px] 
             border-neutral-900 bg-neutral-100 p-2 transition-colors transition-all dark:border-neutral-100 dark:bg-neutral-900 ${className} `}
+            variants={itemVariants}
         >
             <Link href={link.href}>
                 <a className={`z-2 relative flex h-full w-full items-center`}>
                     {link.name}
                 </a>
             </Link>
-        </li>
+        </motion.li>
     );
 };
 export default Nav;

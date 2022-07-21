@@ -21,16 +21,10 @@ function MyApp({ Component, pageProps }: AppProps) {
                 <title>Dalton Kye Miller</title>
                 <link rel="manifest" href="/site.webmanifest" />
             </Head>
-            <AnimatePresence>
-                {isLoading ? (
-                    <motion.div key="loader">
-                        <Loader />
-                    </motion.div>
-                ) : (
-                    <Layout>
-                        <Component {...pageProps} />
-                    </Layout>
-                )}
+            <AnimatePresence onExitComplete={() => scrollTo(0, 0)}>
+                <Layout>
+                    <Component {...pageProps} />
+                </Layout>
             </AnimatePresence>
         </ThemeProvider>
     );

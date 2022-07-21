@@ -77,7 +77,6 @@ const FloatingCard = ({ idx, relMousePos, project }: FloatingCardProps) => {
     return (
         <motion.div
             className={`relative min-h-full cursor-pointer`}
-            layoutId={project.path}
             ref={cardRef}
             style={{ gridArea: letter, x, y }}
         >
@@ -88,7 +87,7 @@ const FloatingCard = ({ idx, relMousePos, project }: FloatingCardProps) => {
                     onMouseOut={() => setIsOpen(false)}
                 >
                     <h1
-                        className={`inline-block animate-bounce text-3xl font-bold`}
+                        className={`inline-block text-3xl font-bold`}
                         style={{ animationDelay: `${idx * 0.25}s` }}
                     >
                         {project.name}

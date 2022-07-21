@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@react-hook/resize-observer": "^1.2.5",
+    "bowser": "^2.11.0",
     "eslint-plugin-tailwindcss": "^3.6.0",
     "framer-motion": "^6.3.3",
     "lodash": "^4.17.21",

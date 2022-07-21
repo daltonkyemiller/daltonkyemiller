@@ -1,12 +1,10 @@
 import {
     createContext,
     PropsWithChildren,
-    ReactElement,
     useEffect,
     useRef,
     useState,
 } from 'react';
-import { set } from 'yaml/dist/schema/yaml-1.1/set';
 
 type Theme = {
     theme: string | null;
