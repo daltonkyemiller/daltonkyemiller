@@ -6,7 +6,7 @@ import Loader from '../components/Loader/Loader';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ThemeProvider } from '../utils/theme/themeContext';
 import Head from 'next/head';
-import { LayoutProvider } from '../utils/context/layoutContext';
+import { LayoutProvider } from 'utils/context/layoutContext';
 
 function MyApp({ Component, pageProps }: AppProps) {
     const [isLoading, setIsLoading] = useState(true);

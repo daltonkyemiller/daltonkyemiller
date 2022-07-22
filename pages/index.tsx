@@ -14,7 +14,7 @@ import { ThemeContext } from '../utils/theme/themeContext';
 import Image from 'next/future/image';
 import { PhotoGrid } from '@components';
 import TypeIn from '../components/TypeIn/TypeIn';
-import { LayoutContext } from '../utils/context/layoutContext';
+import { LayoutContext } from 'utils/context/layoutContext';
 
 type HomeProps = {};
 
