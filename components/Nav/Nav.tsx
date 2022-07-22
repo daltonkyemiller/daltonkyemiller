@@ -1,6 +1,14 @@
 import { motion } from 'framer-motion';
-import React, { HTMLAttributes, PropsWithChildren, useState } from 'react';
+import React, {
+    HTMLAttributes,
+    PropsWithChildren,
+    useContext,
+    useEffect,
+    useState,
+} from 'react';
 import Link from 'next/link';
+import useMeasure from 'react-use-measure';
+import { LayoutContext } from '../../utils/context/layoutContext';
 
 type Link = { name: string; href: string };
 type NavProps = {
@@ -34,14 +42,20 @@ const itemVariants = {
 
 const Nav: React.FC<NavProps> = ({ links }: NavProps) => {
     const [navAnimated, setNavAnimated] = useState(false);
-
+    const [navRef, { height: navHeight }] = useMeasure();
+    const layout = useContext(LayoutContext);
+    useEffect(() => {
+        layout.setNavHeight?.(navHeight);
+    }, [layout, navHeight]);
     return (
-        <nav className={`z-20 flex w-full px-5 py-3`}>
+        <nav ref={navRef} className={`z-20 flex w-full px-5 py-3`}>
             <motion.ul
-                className={`relative flex h-full w-full items-center border-neutral-900 after:absolute after:top-full after:transition-all 
-                ${navAnimated ? 'after:scale-y-100' : 'after:scale-y-0'}
-                after:h-2 after:w-full after:origin-top after:bg-neutral-900 after:content-[""] 
-                dark:border-neutral-100 dark:after:bg-neutral-100`}
+                className={`relative flex min-h-max w-full items-center border-neutral-900 after:absolute after:top-full after:transition-all 
+                ${
+                    navAnimated ? 'after:scale-y-100' : 'after:scale-y-0'
+                } after:h-2 after:w-full after:origin-top
+                 after:bg-neutral-900 after:content-[""] dark:border-neutral-100
+                 dark:after:bg-neutral-100`}
                 variants={containerVariants}
                 initial="initial"
                 animate="animate"
@@ -49,7 +63,7 @@ const Nav: React.FC<NavProps> = ({ links }: NavProps) => {
             >
                 <NavLink
                     link={{ name: 'DKM', href: '/' }}
-                    className={`font-brand text-3xl font-bold md:text-5xl`}
+                    className={`font-brand text-5xl font-bold`}
                 />
                 {links.map((link, idx) => (
                     <NavLink link={link} key={idx} />

@@ -6,6 +6,7 @@ import Loader from '../components/Loader/Loader';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ThemeProvider } from '../utils/theme/themeContext';
 import Head from 'next/head';
+import { LayoutProvider } from '../utils/context/layoutContext';
 
 function MyApp({ Component, pageProps }: AppProps) {
     const [isLoading, setIsLoading] = useState(true);
@@ -16,17 +17,19 @@ function MyApp({ Component, pageProps }: AppProps) {
         }, 3000);
     }, []);
     return (
-        <ThemeProvider>
-            <Head>
-                <title>Dalton Kye Miller</title>
-                <link rel="manifest" href="/site.webmanifest" />
-            </Head>
-            <AnimatePresence onExitComplete={() => scrollTo(0, 0)}>
-                <Layout>
-                    <Component {...pageProps} />
-                </Layout>
-            </AnimatePresence>
-        </ThemeProvider>
+        <LayoutProvider>
+            <ThemeProvider>
+                <Head>
+                    <title>Dalton Kye Miller</title>
+                    <link rel="manifest" href="/site.webmanifest" />
+                </Head>
+                <AnimatePresence onExitComplete={() => scrollTo(0, 0)}>
+                    <Layout>
+                        <Component {...pageProps} />
+                    </Layout>
+                </AnimatePresence>
+            </ThemeProvider>
+        </LayoutProvider>
     );
 }
 

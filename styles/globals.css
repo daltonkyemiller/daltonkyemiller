@@ -35,6 +35,7 @@
 	inset: 0;
 	background-size: cover;
 	background-image: url("/img/overlay/overlay_1.jpg");
+
 	pointer-events: none;
 	touch-action: none;
 
@@ -45,6 +46,6 @@
 		@apply relative bg-neutral-100 scroll-smooth dark:bg-neutral-900 dark:text-neutral-100;
 	}
 	#__next{
-		@apply overflow-x-hidden flex flex-wrap w-screen;
+		@apply overflow-x-hidden w-screen;
 	}
 }

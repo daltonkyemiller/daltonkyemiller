@@ -13,6 +13,8 @@ import { useContext, useState } from 'react';
 import { ThemeContext } from '../utils/theme/themeContext';
 import Image from 'next/future/image';
 import { PhotoGrid } from '@components';
+import TypeIn from '../components/TypeIn/TypeIn';
+import { LayoutContext } from '../utils/context/layoutContext';
 
 type HomeProps = {};
 
@@ -70,6 +72,7 @@ const Home: NextPage<HomeProps> = ({}) => {
     const lineHeight = useTransform(scrollY, [0, 500], [1, 0]);
     const daltonY = useTransform(scrollY, [0, 500], [0, 50]);
     const theme = useContext(ThemeContext);
+    const layout = useContext(LayoutContext);
 
     const [imageLoaded, setImageLoaded] = useState(false);
 
@@ -103,7 +106,10 @@ const Home: NextPage<HomeProps> = ({}) => {
 
     return (
         <>
-            <section className={`relative w-full`}>
+            <section
+                className={`relative flex w-full flex-col justify-center`}
+                style={{ height: `calc(100vh - ${layout.navHeight}px)` }}
+            >
                 <motion.div
                     className={`relative text-center`}
                     variants={cont}
@@ -111,15 +117,18 @@ const Home: NextPage<HomeProps> = ({}) => {
                     animate={'in'}
                 >
                     <motion.div
-                        variants={fadeIn}
-                        className={`font-brand text-[10vw] font-thin`}
+                        className={`overflow-hidden font-brand text-[10vw] font-thin`}
                         style={{ y: daltonY }}
                     >
-                        DALTON
+                        <TypeIn
+                            text={'DALTON'}
+                            animIn={{ opacity: 1, y: 0, x: 0 }}
+                            animOut={{ opacity: 0, y: 200, x: 10 }}
+                            duration={0.5}
+                        />
                     </motion.div>
                     <motion.div
-                        className={`mx-auto h-[3rem] w-full overflow-hidden rounded-full`}
-                        style={{ scaleY: lineHeight }}
+                        className={`mx-auto h-[3rem] w-full overflow-hidden`}
                         initial={{ scaleY: 0 }}
                         animate={imageLoaded ? { scaleY: 1 } : { scaleY: 0 }}
                         transition={{ ease: 'easeInOut' }}
@@ -142,18 +151,20 @@ const Home: NextPage<HomeProps> = ({}) => {
                             />
                         </motion.div>
                     </motion.div>
-                    <motion.span
-                        className={`inline-block font-brand text-[10vw] font-thin`}
-                        variants={fadeIn}
-                    >
-                        KYE &nbsp;
-                    </motion.span>
-                    <motion.span
-                        className={`inline-block font-brand text-[10vw] font-thin`}
-                        variants={fadeIn}
-                    >
-                        MILLER
-                    </motion.span>
+                    <div>
+                        <motion.span
+                            className={`inline-block font-brand text-[10vw] font-thin`}
+                            variants={fadeIn}
+                        >
+                            KYE &nbsp;
+                        </motion.span>
+                        <motion.span
+                            className={`inline-block font-brand text-[10vw] font-thin`}
+                            variants={fadeIn}
+                        >
+                            MILLER
+                        </motion.span>
+                    </div>
                 </motion.div>
             </section>
             <section className={`w-2/3 py-4`} id="who-am-i">
