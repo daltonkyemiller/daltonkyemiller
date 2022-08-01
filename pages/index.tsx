@@ -2,17 +2,14 @@ import type { GetStaticProps, NextPage } from 'next';
 import {
     motion,
     MotionValue,
-    useInView,
     useTransform,
     useViewportScroll,
 } from 'framer-motion';
 import { projects } from '../utils/mock/data';
 import FloatingCards from '../components/FloatingCards/FloatingCards';
-import { useDetectBrowser } from '@hooks';
 import { useContext, useState } from 'react';
 import { ThemeContext } from '../utils/theme/themeContext';
 import Image from 'next/future/image';
-import { PhotoGrid } from '@components';
 import TypeIn from '../components/TypeIn/TypeIn';
 import { LayoutContext } from 'utils/context/layoutContext';
 
@@ -108,38 +105,38 @@ const Home: NextPage<HomeProps> = ({}) => {
         <>
             <section
                 className={`relative flex w-full flex-col justify-center`}
-                style={{ height: `calc(100vh - ${layout.navHeight}px)` }}
+                style={{ height: `calc(100vh - 96px)` }}
             >
                 <motion.div
-                    className={`relative text-center`}
+                    className={`relative whitespace-nowrap text-center font-brand text-6xl font-thin md:text-9xl`}
                     variants={cont}
                     initial={'out'}
                     animate={'in'}
                 >
                     <motion.div
-                        className={`overflow-hidden font-brand text-[10vw] font-thin`}
+                        className={`overflow-hidden py-6`}
                         style={{ y: daltonY }}
                     >
                         <TypeIn
                             text={'DALTON'}
                             animIn={{ opacity: 1, y: 0, x: 0 }}
-                            animOut={{ opacity: 0, y: 200, x: 10 }}
+                            animOut={{ opacity: 0, y: 200, x: 50 }}
                             duration={0.5}
                         />
                     </motion.div>
                     <motion.div
-                        className={`mx-auto h-[3rem] w-full overflow-hidden`}
+                        className={`isolate mx-auto h-[10vh] w-full overflow-hidden `}
                         initial={{ scaleY: 0 }}
                         animate={imageLoaded ? { scaleY: 1 } : { scaleY: 0 }}
                         transition={{ ease: 'easeInOut' }}
                     >
                         <motion.div
                             style={{ y }}
-                            className={`${theme.theme === 'dark' && 'invert'}`}
+                            className={`${theme.theme === 'dark' && 'invert'} `}
                         >
                             <Image
                                 src={'/img/acryl.jpg'}
-                                className={`object-cover object-center`}
+                                className={`scale-[2] object-cover object-center`}
                                 alt={'Header Image'}
                                 width={3840}
                                 height={2160}
@@ -151,27 +148,31 @@ const Home: NextPage<HomeProps> = ({}) => {
                             />
                         </motion.div>
                     </motion.div>
-                    <div>
+                    <div className={`py-6`}>
                         <motion.span
-                            className={`inline-block font-brand text-[10vw] font-thin`}
+                            className={`inline-block`}
                             variants={fadeIn}
                         >
                             KYE &nbsp;
                         </motion.span>
                         <motion.span
-                            className={`inline-block font-brand text-[10vw] font-thin`}
+                            className={`inline-block`}
                             variants={fadeIn}
                         >
                             MILLER
                         </motion.span>
                     </div>
+                    <div></div>
                 </motion.div>
             </section>
-            <section className={`w-2/3 py-4`} id="who-am-i">
+            <section
+                className={`flex h-screen w-full flex-col items-center  py-4`}
+                id="who-am-i"
+            >
                 <motion.h1 className={`font-brand text-6xl`}>
                     BLAH BLAH BLAH
                 </motion.h1>
-                <motion.p>
+                <motion.p className={`my-auto w-full text-2xl md:w-1/2`}>
                     A creative and self-driven software developer with
                     experience in IT, customer service, and account management.
                     After some self development in the tech world, a passion to

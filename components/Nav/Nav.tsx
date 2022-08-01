@@ -63,7 +63,7 @@ const Nav: React.FC<NavProps> = ({ links }: NavProps) => {
             >
                 <NavLink
                     link={{ name: 'DKM', href: '/' }}
-                    className={`font-brand text-5xl font-bold`}
+                    className={`font-brand text-3xl font-bold  md:text-5xl`}
                 />
                 {links.map((link, idx) => (
                     <NavLink link={link} key={idx} />

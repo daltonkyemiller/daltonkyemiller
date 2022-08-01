@@ -26,14 +26,11 @@ const Layout: React.FC<Props> = (props: Props) => {
                 ]}
             />
             {/*<div id="grain" />*/}
-            <div
-                id="texture-overlay"
-                className={`contrast-50 ${
-                    theme.theme === 'dark'
-                        ? 'mix-blend-screen contrast-125 invert'
-                        : 'mix-blend-multiply contrast-125'
-                }`}
-            />
+            {/*<div*/}
+            {/*    id="texture-overlay"*/}
+            {/*    className={`mix-blend-multiply*/}
+            {/*     dark:mix-blend-screen dark:invert`}*/}
+            {/*/>*/}
             <ThemeSwitcher />
             <motion.main className={`w-full px-4`}>
                 {props.children}
