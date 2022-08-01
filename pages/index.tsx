@@ -165,27 +165,6 @@ const Home: NextPage<HomeProps> = ({}) => {
                     <div></div>
                 </motion.div>
             </section>
-            <section
-                className={`flex h-screen w-full flex-col items-center  py-4`}
-                id="who-am-i"
-            >
-                <motion.h1 className={`font-brand text-6xl`}>
-                    BLAH BLAH BLAH
-                </motion.h1>
-                <motion.p className={`my-auto w-full text-2xl md:w-1/2`}>
-                    A creative and self-driven software developer with
-                    experience in IT, customer service, and account management.
-                    After some self development in the tech world, a passion to
-                    aid in the creation of intuitive, useful and interactive
-                    applications was discovered. Working in fast-paced teams
-                    developed the skills necessary to effectively communicate
-                    and creatively solve problems on the fly.
-                </motion.p>
-            </section>
-            <section id={`projects`}>
-                <h1 className="font-brand text-6xl">Projects</h1>
-                <FloatingCards />
-            </section>
         </>
     );
 };
