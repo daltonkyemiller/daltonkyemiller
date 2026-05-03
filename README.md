@@ -58,19 +58,6 @@ GitHub signal.
 
 ### No. 03
 
-Working notes.
-
-```txt
-clarity over cleverness
-fast feedback over big reveals
-product taste over framework cosplay
-specific tools for specific jobs
-small durable systems over sprawling abstractions
-interfaces that respect the person using them
-```
-
-### No. 04
-
 Correspondence.
 
 <p>
