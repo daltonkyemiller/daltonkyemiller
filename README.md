@@ -1,4 +1,10 @@
-<h1 align="center">Dalton Kye Miller</h1>
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="./assets/profile-banner-dark.png">
+    <source media="(prefers-color-scheme: light)" srcset="./assets/profile-banner.png">
+    <img src="./assets/profile-banner.png" alt="Dalton Kye Miller" width="1200">
+  </picture>
+</p>
 
 <p align="center">
   Product engineer with a frontend and design bias.
